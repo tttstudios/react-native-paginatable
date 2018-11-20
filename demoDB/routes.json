@@ -1,0 +1,7 @@
+{
+    "/users/list": "/users",
+    "/users/get/:id": "/users/:id",
+    "/users/create": "/users",
+    "/users/update/:id": "/users/:id",
+    "/users/delete/:id": "/users/:id"
+  }

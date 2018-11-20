@@ -1,6 +1,6 @@
 ## Installation
 1. Create enviroment file: `cp .env.example .env`. Fill the baseURL with something like `BASE_API_URL=http://10.0.0.30:3000` where `10.0.0.30` should be changed to your own IP.
-1. Create your own demo backend db. `cd demoDB && cp .db.json.example .db.json`.
+1. Create your own demo backend db. `cd demoDB && cp db.json.example db.json`.
 1. Run `yarn install` or `npm install`.
 1. Use cocoapods to install iOS dependencies. Locate to ios folder and run `pod install`. 
 1. Run `react-native link` in project folder. 

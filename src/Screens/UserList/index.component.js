@@ -38,6 +38,9 @@ export default class UserListComponent extends Component {
                     onRenderItem={this.renderListItem}
                     customizedPaginationStateManager={this.props.paginatableListReducer}
                     extraData={this.state.highlightedItemIndex}
+                    // pageSize={10}
+                    // pageSizeKey={'size'}
+                    // pageNumberKey={'page'}
                     onLoadMore={this.props.onLoadMore}
                     onRefresh={this.props.onRefresh}
                 />

@@ -69,9 +69,9 @@ export default class PaginationStateManager {
         })
     }
 
-    loadMore = ({ pageNumber, pageSize, ...args }) => {
+    loadMore = ({ pageNumberKey, pageSizeKey, pageNumber, pageSize, ...args }) => {
         return (dispatch) => {
-            PaginateService.getItems({ pageNumber, pageSize, endpointUrl: this.endpointUrl, ...args })
+            PaginateService.getItems({ pageNumberKey, pageSizeKey, pageNumber, pageSize, endpointUrl: this.endpointUrl, ...args })
             .then(response => {
                 dispatch(this.actions.loadMore(response.data))
             })
@@ -81,9 +81,9 @@ export default class PaginationStateManager {
         }
     };
 
-    refresh = ({ pageSize, ...args }, successCallback = () => {}) => {
+    refresh = ({ pageNumberKey, pageSizeKey, pageSize, ...args }, successCallback = () => {}) => {
         return (dispatch) => {
-            PaginateService.getItems({ pageNumber: 1, pageSize, endpointUrl: this.endpointUrl, ...args })
+            PaginateService.getItems({ pageNumberKey, pageSizeKey, pageNumber: 1, pageSize, endpointUrl: this.endpointUrl, ...args })
             .then(response => {
                 dispatch(this.actions.refresh(response.data))
                 successCallback()

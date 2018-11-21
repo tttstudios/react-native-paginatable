@@ -16,15 +16,15 @@ class UserListContainer extends Component {
         this.props.dispatch(customizedPaginationStateManager.highlightItem({ index: index, extra: 'extra' }))
     }
 
-    // onLoadMoreUsers = ({ pageNumber }) => {
-    //     this.props.dispatch(customizedPaginationStateManager.loadMore({ pageNumber: pageNumber, keyword: '123', isValid: true }))
-    //     //The keyword and isValid param is an example of querying more params other than pageNumber and pageSize. 
-    // }
+    onLoadMoreUsers = ({ ...args }) => {
+        this.props.dispatch(customizedPaginationStateManager.loadMore({ ...args, keyword: '123', isValid: true }))
+        //The keyword and isValid param is an example of querying more params other than pageNumber and pageSize. 
+    }
 
-    // onRefreshUserList = ({onCompleteRefreshing}) => {
-    //     this.props.dispatch(customizedPaginationStateManager.refresh({ keyword: '123', isValid: true }, onCompleteRefreshing))
-    //     //The keyword and isValid param is an example of querying more params other than pageNumber and pageSize. 
-    // }
+    onRefreshUserList = ({onCompleteRefreshing, ...args}) => {
+        this.props.dispatch(customizedPaginationStateManager.refresh({ ...args, keyword: '123', isValid: true }, onCompleteRefreshing))
+        //The keyword and isValid param is an example of querying more params other than pageNumber and pageSize. 
+    }
 
     render() {
         return (

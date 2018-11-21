@@ -11,6 +11,9 @@ class PaginatableList extends Component {
         onRenderItem            : PropTypes.func,
         numColumns              : PropTypes.number,
         extraData               : PropTypes.extraData, //extraData is used to make sure Flatlist will rerender when the object that passed in changes. Otherwise, Flatlist acts as PureComponent.
+        pageNumberKey           : PropTypes.string,
+        pageSizeKey             : PropTypes.string,
+        pageSize                : PropTypes.number,
 
         reducerName             : PropTypes.string,
         /* This prop is used as the key to store the items in this list in redux store. 
@@ -25,8 +28,10 @@ class PaginatableList extends Component {
     }
 
     static defaultProps = {
-        reducerName : defaultReducerName,
-        numColumns  : 1
+        reducerName     : defaultReducerName,
+        numColumns      : 1,
+        pageNumberKey   : '_page',
+        pageSizeKey     : '_limit'
     }
 
     state = {
@@ -73,22 +78,24 @@ class PaginatableList extends Component {
     }
 
     onLoadMore = ({ pageNumber }) => {
+        const { pageNumberKey, pageSizeKey, pageSize } =  this.props
         if (this.props.onLoadMore) {
-            this.props.onLoadMore({ pageNumber })
+            this.props.onLoadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize })
         } else {
-            this.props.dispatch(this.paginationStateManager.loadMore({ pageNumber }))
+            this.props.dispatch(this.paginationStateManager.loadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize }))
         }
     }
 
     onRefresh = () => {
+        const { pageNumberKey, pageSizeKey, pageSize } =  this.props
         this.setState({
             pageNumber: 1,
             isRefreshing: true
         }, () => {
             if (this.props.onRefresh) {
-                this.props.onRefresh({ onCompleteRefreshing: this.onCompleteRefreshing })
+                this.props.onRefresh({ onCompleteRefreshing: this.onCompleteRefreshing, pageNumberKey, pageSizeKey, pageSize })
             } else {
-                this.props.dispatch(this.paginationStateManager.refresh({}, this.onCompleteRefreshing))
+                this.props.dispatch(this.paginationStateManager.refresh({ pageNumberKey, pageSizeKey, pageSize }, this.onCompleteRefreshing))
             }
         })
     }

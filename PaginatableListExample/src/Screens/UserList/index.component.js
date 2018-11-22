@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { PaginatableList } from '@Components';
+import PaginatableList from '../../PaginatableList';
 
 export default class UserListComponent extends Component {
 

@@ -38,7 +38,7 @@ yarn-error.log
 
 # Cocoapods
 #
-ios/Pods
+PaginatableListExample/ios/Pods
 
 # BUCK
 buck-out/
@@ -58,5 +58,5 @@ buck-out/
 
 # Environment file
 .env
-demoDB/db.json
+PaginatableListExample/demoDB/db.json
 

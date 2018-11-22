@@ -1,5 +1,4 @@
 import { createActions, createReducer } from 'reduxsauce';
-import { reduxStore, injectAsyncReducer } from '@Components/Store';
 import PaginateService from './PaginateService';
 
 export default class PaginationStateManager {
@@ -38,11 +37,6 @@ export default class PaginationStateManager {
 
     reducer = () => {
         return createReducer(this.initialState, this.actionHandlers)
-    }
-
-    linkToReduxStore = () => {
-        if (__DEV__) console.tron.log(`Link Reducer '${this.name}' to Redux Store. Use '${this.name}' as path of state subscription in Reactotron.`)
-        injectAsyncReducer(reduxStore, this.name, createReducer(this.initialState, this.actionHandlers))
     }
 
     addAction({ type, payload, handler }) {

@@ -1,4 +1,4 @@
-import PaginationStateManager from '@Components/PaginatableList/PaginationStateManager';
+import { PaginationStateManager } from '../PaginatableList';
 
 export default class CustomizedPaginationStateManager extends PaginationStateManager {
     constructor(name, url) {

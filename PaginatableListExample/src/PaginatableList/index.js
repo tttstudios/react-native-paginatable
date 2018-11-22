@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PaginationStateManager from './PaginationStateManager';
 
-const defaultReducerName = 'dynamic'
-
 class PaginatableList extends Component {
     static propTypes = {
         onRenderItem            : PropTypes.func,
@@ -14,21 +12,13 @@ class PaginatableList extends Component {
         pageNumberKey           : PropTypes.string,
         pageSizeKey             : PropTypes.string,
         pageSize                : PropTypes.number,
-
-        reducerName             : PropTypes.string,
-        /* This prop is used as the key to store the items in this list in redux store. 
-            Please make sure differnt reducerName is used when you have multiple PaginatableList components in use. */
         paginatableSourceUrl    : PropTypes.string, // This is the endpoint url that could take pageSize and pageNumber as query params.
-        
         customizedPaginationStateManager       : PropTypes.instanceOf(PaginationStateManager),
-        /* If customizedPaginationStateManager props is provided. The reducerName and paginatableSourceUrl are not required anymore. */
-        injectReducer           : PropTypes.bool, //If injectReducer is true, the component will inject the reducer for you. Otherwise, you either inject the reducer outside of the component or predefined it already in the combineReducers() function.
         onLoadMore              : PropTypes.func, //If you need to handle loadMore on your own. For examplem, you might need to query with more parmas than pageNumber and pageSize. 
         onRefresh               : PropTypes.func, //If you need to handle refresh on your own.              
     }
 
     static defaultProps = {
-        reducerName     : defaultReducerName,
         numColumns      : 1,
         pageNumberKey   : '_page',
         pageSizeKey     : '_limit'
@@ -55,13 +45,6 @@ class PaginatableList extends Component {
     configureReducer() {
         if (this.props.customizedPaginationStateManager) {
             this.paginationStateManager = this.props.customizedPaginationStateManager
-            
-            if (this.props.injectReducer) {
-                this.paginationStateManager.linkToReduxStore()
-            }
-        } else {
-            this.paginationStateManager = new PaginationStateManager(this.props.reducerName, this.props.paginatableSourceUrl)
-            this.paginationStateManager.linkToReduxStore()
         }
     }
 
@@ -122,7 +105,7 @@ class PaginatableList extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-    let reducerName = props.customizedPaginationStateManager ? props.customizedPaginationStateManager.name : (props.reducerName || defaultReducerName)
+    let reducerName = props.customizedPaginationStateManager.name
     return {
         items: state[reducerName] && state[reducerName].items || []
     }
@@ -132,4 +115,5 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch
 });
 
+export { PaginationStateManager }
 export default connect(mapStateToProps, mapDispatchToProps)(PaginatableList);

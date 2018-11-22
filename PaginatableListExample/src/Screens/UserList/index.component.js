@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import PaginatableList from '../../PaginatableList';
+import PaginatableList from '@twotalltotems/paginatable-list';
 
 export default class UserListComponent extends Component {
 

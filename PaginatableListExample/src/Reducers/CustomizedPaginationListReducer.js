@@ -1,4 +1,4 @@
-import { PaginationStateManager } from '../PaginatableList';
+import { PaginationStateManager } from '@twotalltotems/paginatable-list';
 
 export default class CustomizedPaginationStateManager extends PaginationStateManager {
     constructor(name, url) {

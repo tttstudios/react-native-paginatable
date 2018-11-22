@@ -491,6 +491,10 @@
     lodash "^4.17.4"
     react-native-vector-icons "4.4.2"
 
+"@twotalltotems/paginatable-list@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@twotalltotems/paginatable-list/-/paginatable-list-0.0.1.tgz#8c886bcc2b8063c7f18f61842568b29a67533e5e"
+
 abab@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"

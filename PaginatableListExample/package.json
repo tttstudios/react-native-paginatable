@@ -1,7 +1,6 @@
 {
   "name": "PaginatableList",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.0.2",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "start-local-backend": "json-server ./demoDB/db.json --routes ./demoDB/routes.json",

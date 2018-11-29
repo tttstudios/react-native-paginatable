@@ -8,6 +8,8 @@
 
 ## Dependencies
 
+This project needs the follow dependencies inside your project.
+
 1. `react-redux`
 1. `prop-types`
 1. `axios`
@@ -18,7 +20,9 @@
 
 #### Initialize PaginationStateManager Instance
 
-In order to use `PaginatableList`, first create a `PaginationStateManager` instance. The two required pramas are the `key` in redux store that will be used to store list items, and the `endpoint url` respectively.
+In order to use `PaginatableList`, first create a `PaginationStateManager` instance. There are two required parameters:
+1. `key`: Redux store key that will be used to store list items
+1. `endpoint url`: Base url for requesting next pages and content.
 
 ```
 import { PaginationStateManager } from '@twotalltotems/paginatable-list';

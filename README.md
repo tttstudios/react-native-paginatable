@@ -21,7 +21,7 @@ const paginationStateManager = new PaginationStateManager('users', 'users');
 1. The first param `users` is the key that will be used to store list item in the redux store. 
 2. The second param `users` is the paginatable endpoint url. In this example, the full api endpoint is `http://localhost:3000/users`, and the `base url`, which is `http://localhost:3000`, is store in `.env` config file. 
 
-####Link Redux Store
+#### Link Redux Store
 
 ```
 import { combineReducers, applyMiddleware, compose} from 'redux';
@@ -43,7 +43,7 @@ const reduxStore = Reactotron.createStore(
 ```
 *Notice: The key used in `combineReducers` need to be consistant with the key that is used to initialize `PaginationStateManager` in the last step, which is `users` in this example.*
 
-####Use PaginatableList Component
+#### Use PaginatableList Component
 
 ```
 render() {
@@ -70,13 +70,13 @@ renderListItem = ({ index, item }) => {
 2. In this example, `renderListItem` params `item` is the object within the array that is stored in redux store. Currently, `PaginationStateManager` is storing whatever the server response. In this example, local server is return an array of objects, and each object contains `id`, `email`, and `password`. Therefore, redux store is storing by default the exact same format of the object.
 
 
-###Customization
+### Customization
 
 If you need more than loading more items, and pull-to-refresh, continue reading.
 
 For many lists in actual situations, we need more than only the two common operations for the list. Example of the extra operations could be click to like an item, delete an item, or highlight an item. We will exmplain the customization with an highlighting item as example.
 
-####Subclass PaginationStateManager
+#### Subclass PaginationStateManager
 
 To customize, first subclassing from `PaginatableListReducer`.
 
@@ -90,7 +90,7 @@ export default class CustomizedPaginationStateManager extends PaginationStateMan
 }
 ```
 
-####Add Extra Action
+#### Add Extra Action
 Initialize instance of CustomizedPaginationStateManager, and add extra action to it.
 
 ```
@@ -110,7 +110,7 @@ customizedPaginationStateManager.addActions([
 ])
 ```
 
-####Dispatch The Extra Action
+#### Dispatch The Extra Action
 
 First, let's make the list item clickable, and make it call `onHighlightItem` when the item is clicked.
 ```

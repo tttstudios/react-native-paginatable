@@ -31,18 +31,27 @@ export default class UserListComponent extends Component {
         )
     }
 
+    renderEmptyStatus = () => {
+        return (
+            <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text>Empty List</Text>
+            </View>
+        )
+    }
+
     render() {
         return (
             <View style={{ flex:1 }}>
                 <PaginatableList
                     onRenderItem={this.renderListItem}
+                    onRenderEmptyStatus={this.renderEmptyStatus}
                     customizedPaginationStateManager={this.props.paginatableListReducer}
                     extraData={this.state.highlightedItemIndex}
                     // pageSize={10}
                     // pageSizeKey={'size'}
                     // pageNumberKey={'page'}
-                    onLoadMore={this.props.onLoadMore}
-                    onRefresh={this.props.onRefresh}
+                    // onLoadMore={this.props.onLoadMore}
+                    // onRefresh={this.props.onRefresh}
                 />
             </View>
         )

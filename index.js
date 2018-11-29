@@ -7,6 +7,7 @@ import PaginationStateManager from './PaginationStateManager';
 class PaginatableList extends Component {
     static propTypes = {
         onRenderItem            : PropTypes.func,
+        onRenderEmptyStatus     : PropTypes.func,
         numColumns              : PropTypes.number,
         extraData               : PropTypes.extraData, //extraData is used to make sure Flatlist will rerender when the object that passed in changes. Otherwise, Flatlist acts as PureComponent.
         pageNumberKey           : PropTypes.string,
@@ -87,7 +88,7 @@ class PaginatableList extends Component {
         this.setState({ isRefreshing: false })
     }
 
-    render() {
+    renderList = () => {
         return (
             <FlatList
                 data={this.props.items || []}
@@ -101,6 +102,24 @@ class PaginatableList extends Component {
                 }
             />
         )
+    }
+
+    renderEmptyStatus = () => {
+        if (this.props.onRenderEmptyStatus) {
+            return this.props.onRenderEmptyStatus()
+        }
+        return (
+            <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text>There is no items in the list.</Text>
+            </View>
+        )
+    }
+
+    render() {
+        if (this.props.items && this.props.items.length > 0) {
+            return this.renderList()
+        }
+        return this.renderEmptyStatus()
     }
 }
 

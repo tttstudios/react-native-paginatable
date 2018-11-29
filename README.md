@@ -1,16 +1,24 @@
 # PaginatableList
 
-The PaginatableListView is a wrapper build on top of React Native FlatList that make the list capable of doing pagination on its own.
+`PaginatableListView` is a wrapper build on top of React Native's `FlatList` that make the list capable of doing pagination on its own.
 
 ## Installation
-1. `yarn add @twotalltotems/paginatable-list`
-2. Add dependencies of `react-redux`, `prop-types`, `axios`, `react-native-config`, and `reduxsauce`.
+1. `yarn add @twotalltotems/paginatable-list` or `npm install @twotalltotems/paginatable-list --save` 
+
+
+## Dependencies
+
+1. `react-redux`
+1. `prop-types`
+1. `axios`
+1. `react-native-config`
+1. `reduxsauce`
 
 ## Basic Usage
 
 #### Initialize PaginationStateManager Instance
 
-In order to use `PaginatableList`, first create a PaginationStateManager instance. The two required pramas are the `key` in redux store that will be used to store list items, and the `endpoint url` respectively.
+In order to use `PaginatableList`, first create a `PaginationStateManager` instance. The two required pramas are the `key` in redux store that will be used to store list items, and the `endpoint url` respectively.
 
 ```
 import { PaginationStateManager } from '@twotalltotems/paginatable-list';

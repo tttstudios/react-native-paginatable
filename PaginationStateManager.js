@@ -63,19 +63,21 @@ export default class PaginationStateManager {
         })
     }
 
-    loadMore = ({ pageNumberKey, pageSizeKey, pageNumber, pageSize, ...args }) => {
+    loadMore = ({ pageNumberKey, pageSizeKey, pageNumber, pageSize, ...args }, successCallback = () => {}, errorCallback = () => {}) => {
         return (dispatch) => {
             PaginateService.getItems({ pageNumberKey, pageSizeKey, pageNumber, pageSize, endpointUrl: this.endpointUrl, ...args })
             .then(response => {
                 dispatch(this.actions.loadMore(response.data))
+                successCallback()
             })
             .catch(error => {
-                if (__DEV__) console.tron.log(error)
+                if (__DEV__) console.tron.log(JSON.stringify(error))
+                errorCallback(error)
             })
         }
     };
 
-    refresh = ({ pageNumberKey, pageSizeKey, pageSize, ...args }, successCallback = () => {}) => {
+    refresh = ({ pageNumberKey, pageSizeKey, pageSize, ...args }, successCallback = () => {}, errorCallback = () => {}) => {
         return (dispatch) => {
             PaginateService.getItems({ pageNumberKey, pageSizeKey, pageNumber: 1, pageSize, endpointUrl: this.endpointUrl, ...args })
             .then(response => {
@@ -83,7 +85,8 @@ export default class PaginationStateManager {
                 successCallback()
             })
             .catch(error => {
-                if (__DEV__) console.tron.log(error)
+                if (__DEV__) console.tron.log(JSON.stringify(error))
+                errorCallback(error)
             })
         }
     }

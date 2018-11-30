@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, RefreshControl, View, Text } from 'react-native';
+import { FlatList, RefreshControl, View, Text, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PaginationStateManager from './PaginationStateManager';
@@ -16,7 +16,8 @@ class PaginatableList extends Component {
         paginatableSourceUrl    : PropTypes.string, // This is the endpoint url that could take pageSize and pageNumber as query params.
         customizedPaginationStateManager       : PropTypes.instanceOf(PaginationStateManager),
         onLoadMore              : PropTypes.func, //If you need to handle loadMore on your own. For examplem, you might need to query with more parmas than pageNumber and pageSize. 
-        onRefresh               : PropTypes.func, //If you need to handle refresh on your own.              
+        onRefresh               : PropTypes.func, //If you need to handle refresh on your own.
+        onLoadError             : PropTypes.func,              
     }
 
     static defaultProps = {
@@ -66,7 +67,7 @@ class PaginatableList extends Component {
         if (this.props.onLoadMore) {
             this.props.onLoadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize })
         } else {
-            this.props.dispatch(this.paginationStateManager.loadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize }))
+            this.props.dispatch(this.paginationStateManager.loadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize }, this.onCompleteLoadingMore, this.onLoadError))
         }
     }
 
@@ -79,13 +80,23 @@ class PaginatableList extends Component {
             if (this.props.onRefresh) {
                 this.props.onRefresh({ onCompleteRefreshing: this.onCompleteRefreshing, pageNumberKey, pageSizeKey, pageSize })
             } else {
-                this.props.dispatch(this.paginationStateManager.refresh({ pageNumberKey, pageSizeKey, pageSize }, this.onCompleteRefreshing))
+                this.props.dispatch(this.paginationStateManager.refresh({ pageNumberKey, pageSizeKey, pageSize }, this.onCompleteRefreshing, this.onLoadError))
             }
         })
     }
 
+    onCompleteLoadingMore = () => {
+        if (__DEV__) console.tron.log('Load More Items Completed')
+    }
+
     onCompleteRefreshing = () => {
         this.setState({ isRefreshing: false })
+    }
+
+    onLoadError = (error) => {
+        if (this.props.onLoadError) {
+            this.props.onLoadError(error)
+        }
     }
 
     renderList = () => {
@@ -110,7 +121,8 @@ class PaginatableList extends Component {
         }
         return (
             <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>There is no items in the list.</Text>
+                <Image style={{ width: '50%', maxHeight: 100, margin: 10, tintColor: '#c0c1c4' }} resizeMode={'contain'} source={require('./assets/TTTLogo_white.png')} />
+                <Text style={{ color: '#c0c1c4' }}>There is no items in the list.</Text>
             </View>
         )
     }

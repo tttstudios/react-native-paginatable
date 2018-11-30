@@ -39,12 +39,19 @@ export default class UserListComponent extends Component {
         )
     }
 
+    onPaginatableListLoadError = (error) => {
+        const { status } = error.request
+        if (status == 0) {
+            alert('It seems like your local server is not running properly. \nPlease Check README.md for more details.')
+        }
+    }
+
     render() {
         return (
             <View style={{ flex:1 }}>
                 <PaginatableList
                     onRenderItem={this.renderListItem}
-                    onRenderEmptyStatus={this.renderEmptyStatus}
+                    //onRenderEmptyStatus={this.renderEmptyStatus}
                     customizedPaginationStateManager={this.props.paginatableListReducer}
                     extraData={this.state.highlightedItemIndex}
                     // pageSize={10}
@@ -52,6 +59,7 @@ export default class UserListComponent extends Component {
                     // pageNumberKey={'page'}
                     // onLoadMore={this.props.onLoadMore}
                     // onRefresh={this.props.onRefresh}
+                    onLoadError={this.onPaginatableListLoadError}
                 />
             </View>
         )

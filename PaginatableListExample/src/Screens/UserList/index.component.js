@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import PaginatableList from '@twotalltotems/paginatable-list';
+import style from './style';
+
+const ttt_blue = '#5B93C3'
+const ttt_white = '#FFFFFF'
+const ttt_grey = '#4D4D4F'
 
 export default class UserListComponent extends Component {
 
@@ -13,9 +18,10 @@ export default class UserListComponent extends Component {
     }
 
     renderListItem = ({ index, item }) => {
+        const isHighlighted = index == this.state.highlightedItemIndex
         return (
             <TouchableOpacity
-                style={{ height: 150, borderBottomColor: 'black', borderBottomWidth: 1, padding: 5, backgroundColor: index == this.state.highlightedItemIndex ? 'yellow' : undefined }}
+                style={{ ...style.cellButton, backgroundColor: isHighlighted ? ttt_blue : undefined }}
                 onPress={() => {
                     this.setState({
                         highlightedItemIndex: index
@@ -25,8 +31,10 @@ export default class UserListComponent extends Component {
                     }   
                 }}
             >
-                <Text>User ID:{item.id}</Text>
-                <Text>Email: {item.email}</Text>
+                <Image style={style.cellLogo} resizeMode={'contain'} source={isHighlighted ? require('../../Assets/TTTLogo_white.png') : require('../../Assets/TTTLogo.png')} />
+                <Text style={{ color: isHighlighted ? ttt_white : ttt_grey, fontWeight: isHighlighted ? 'bold' : 'normal' }}>User ID: {item.id}</Text>
+                <Text style={{ color: isHighlighted ? ttt_white : ttt_grey, fontWeight: isHighlighted ? 'bold' : 'normal' }}>Email: {item.email}</Text>
+                
             </TouchableOpacity>
         )
     }
@@ -34,9 +42,19 @@ export default class UserListComponent extends Component {
     renderEmptyStatus = () => {
         return (
             <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Empty List</Text>
+                <View>
+                    <Image style={style.emptyStatusLogo} resizeMode={'contain'} source={require('../../Assets/TTTLogo.png')} />
+                    <Text>Customized Empty Status</Text>
+                </View>
             </View>
         )
+    }
+
+    onPaginatableListLoadError = (error) => {
+        const { status } = error.request
+        if (status == 0) {
+            alert('It seems like your local server is not running properly. \nPlease Check README.md for more details.')
+        }
     }
 
     render() {
@@ -52,6 +70,7 @@ export default class UserListComponent extends Component {
                     // pageNumberKey={'page'}
                     // onLoadMore={this.props.onLoadMore}
                     // onRefresh={this.props.onRefresh}
+                    onLoadError={this.onPaginatableListLoadError}
                 />
             </View>
         )

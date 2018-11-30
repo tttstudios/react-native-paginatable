@@ -5,7 +5,7 @@ import { customizedPaginationStateManager } from '@Reducers/CustomizedPagination
 
 class UserListContainer extends Component {
     static navigationOptions = {
-        title  : 'User List'
+        title  : 'Paginatable User List'
     };
 
     constructor(props) {

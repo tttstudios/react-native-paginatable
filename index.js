@@ -3,9 +3,7 @@ import { FlatList, RefreshControl, View, Text, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PaginationStateManager from './PaginationStateManager';
-
-const ttt_lightGrey = '#c0c1c4'
-const ttt_darkGrey = '#9f9fa0'
+import style from './style';
 
 class PaginatableList extends Component {
     static propTypes = {
@@ -36,10 +34,10 @@ class PaginatableList extends Component {
 
     renderItem = ({ index, item }) => {
         return (
-            <View style={{ height: 120, borderBottomColor: ttt_lightGrey, borderBottomWidth: 1, padding: 20 }}>
-                <Text style={{ color: ttt_darkGrey }}>{`Item ${index}`}</Text>
-                <Text style={{ color: ttt_darkGrey, fontSize: 12 }}>Use 'onRenderItem' props to overwrite the default cell.</Text>
-                <Image style={{ width: 80, height: 40, tintColor: ttt_lightGrey, alignSelf: 'flex-end', marginTop: 10 }} resizeMode={'contain'} source={require('./assets/TTTLogo_white.png')} />
+            <View style={style.defaultCell}>
+                <Text style={style.defaultCellText}>{`Item ${index}`}</Text>
+                <Text style={style.defaultCellHint}>Use 'onRenderItem' props to overwrite the default cell.</Text>
+                <Image style={style.defaultCellLogo} resizeMode={'contain'} source={require('./assets/TTTLogo_white.png')} />
             </View>
         )
     }
@@ -125,9 +123,9 @@ class PaginatableList extends Component {
             return this.props.onRenderEmptyStatus()
         }
         return (
-            <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
-                <Image style={{ width: '50%', maxHeight: 100, margin: 10, tintColor: ttt_lightGrey }} resizeMode={'contain'} source={require('./assets/TTTLogo_white.png')} />
-                <Text style={{ color: ttt_lightGrey }}>There is no items in the list.</Text>
+            <View style={style.defaultEmptyStatusContainer}>
+                <Image style={style.defaultEmptyStatusLogo} resizeMode={'contain'} source={require('./assets/TTTLogo_white.png')} />
+                <Text style={style.defaultCellText}>There is no items in the list.</Text>
             </View>
         )
     }

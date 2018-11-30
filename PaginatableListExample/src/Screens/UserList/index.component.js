@@ -42,7 +42,10 @@ export default class UserListComponent extends Component {
     renderEmptyStatus = () => {
         return (
             <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Empty List</Text>
+                <View>
+                    <Image style={style.emptyStatusLogo} resizeMode={'contain'} source={require('../../Assets/TTTLogo.png')} />
+                    <Text>Customized Empty Status</Text>
+                </View>
             </View>
         )
     }
@@ -59,7 +62,7 @@ export default class UserListComponent extends Component {
             <View style={{ flex:1 }}>
                 <PaginatableList
                     onRenderItem={this.renderListItem}
-                    //onRenderEmptyStatus={this.renderEmptyStatus}
+                    onRenderEmptyStatus={this.renderEmptyStatus}
                     customizedPaginationStateManager={this.props.paginatableListReducer}
                     extraData={this.state.highlightedItemIndex}
                     // pageSize={10}

@@ -1,8 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 const ttt_blue = '#5B93C3'
-const ttt_white = '#FFFFFF'
-const ttt_grey = '#4D4D4F'
 
 export default styles = StyleSheet.create({
     cellButton: {
@@ -16,5 +14,11 @@ export default styles = StyleSheet.create({
         width: 80, 
         height: 40, 
         alignSelf: 'flex-end'
-    }
+    },
+    emptyStatusLogo: {
+        width: 160, 
+        height: 80, 
+        alignSelf: 'flex-end', 
+        marginTop: 10
+    },
 })

@@ -182,3 +182,36 @@ export default class CustomizedPaginationStateManager extends PaginationStateMan
     }; 
 }
 ```
+
+#### Customize Empty Status
+Customize empty status for PaginatableList via `onRenderEmptyStatus` props.
+
+```
+renderEmptyStatus = () => {
+    return (
+        <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
+            <View>
+              	<Image 
+            		style={style.emptyStatusLogo} 
+            		resizeMode={'contain'} 
+            		source={require('../../Assets/TTTLogo.png')} 
+            	/>
+                <Text>Customized Empty Status</Text>
+            </View>
+        </View>
+    )
+}
+
+    
+render() {
+    return (
+        <View style={{ flex:1 }}>
+            <PaginatableList
+                onRenderItem={this.renderListItem}
+                onRenderEmptyStatus={this.renderEmptyStatus}
+                customizedPaginationStateManager={this.props.paginatableListReducer}
+            />
+        </View>
+    )
+}
+```

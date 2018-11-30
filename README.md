@@ -2,6 +2,8 @@
 
 `PaginatableListView` is a wrapper build on top of React Native's `FlatList` that make the list capable of doing pagination on its own.
 
+<a href="https://imgflip.com/gif/2nvebz"><img src="https://i.imgflip.com/2nvebz.gif" title="made at imgflip.com"/></a>
+
 ## Installation
 1. `yarn add @twotalltotems/paginatable-list` or `npm install @twotalltotems/paginatable-list --save` 
 

@@ -17,8 +17,12 @@
     "auto",
     "list"
   ],
-  "author": "Becky Wu <wwq220@gmail.com> (http://www.beckywu.me)",
-  "license": "ISC",
+  "author": "TTT Studio (https://ttt.studio)",
+  "contributors": [
+    "Becky Wu <wwq220@gmail.com> (http://www.beckywu.me)",
+    "Felipe Peña <felipe@penya.cl> (http://felipe.penya.cl)"
+  ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Twotalltotems/react-native-paginatable/issues"
   },

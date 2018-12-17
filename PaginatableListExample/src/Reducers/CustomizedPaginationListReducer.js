@@ -1,4 +1,5 @@
 import { PaginationStateManager } from '@twotalltotems/paginatable-list';
+import Config from 'react-native-config';
 
 export default class CustomizedPaginationStateManager extends PaginationStateManager {
     constructor(name, url) {
@@ -15,7 +16,7 @@ export default class CustomizedPaginationStateManager extends PaginationStateMan
     with the same params that you used while calling highlightItem() for a PaginationStateManager instance. */
 }
 
-export const customizedPaginationStateManager = new CustomizedPaginationStateManager('users', 'users')
+export const customizedPaginationStateManager = new CustomizedPaginationStateManager('users', `${Config.BASE_API_URL}/users`)
 
 customizedPaginationStateManager.addActions([
     {

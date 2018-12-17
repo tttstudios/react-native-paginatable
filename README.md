@@ -1,11 +1,20 @@
+![PaginatableList](https://raw.githubusercontent.com/Twotalltotems/react-native-paginatable/develop/assets/paginatablelist_banner.jpg?token=AP1X8MZ26iYe8ToP9Rrvc0l7d4ZFYai-ks5cISTxwA%3D%3D)
 # PaginatableList
 
-`PaginatableListView` is a wrapper build on top of React Native's `FlatList` that make the list capable of doing pagination on its own.
+**PaginatableList** is a list component developed by **TTT Studio** Mobile Team for the purpose of avoiding repetitive logic that handles loading more list items via pagination in the REST API, and pull-to-refresh the entire list. PaginatableList is built on top of React Native's `FlatList`, but we make it be able to manage the list items automatically and store the list items in Redux Store. 
+
+By default, it provides:
+
+*  Reaching the list bottom to load more items after making GET API call.
+*  Pull-to-refresh the whole list.
+
+However, it is customizable regarding the item cell appearance, and more actions than the two default actions out of the box. 
 
 <a href="https://imgflip.com/gif/2nvebz"><img src="https://i.imgflip.com/2nvebz.gif" title="made at imgflip.com"/></a>
 
 ## Installation
 1. `yarn add @twotalltotems/paginatable-list` or `npm install @twotalltotems/paginatable-list --save` 
+2. Install dependencies.
 
 
 ## Dependencies
@@ -13,27 +22,32 @@
 This project needs the follow dependencies inside your project.
 
 1. `react-redux`
+1. `reduxsauce`
+2. `redux-thunk`
 1. `prop-types`
 1. `axios`
 1. `react-native-config`
-1. `reduxsauce`
+
 
 ## Basic Usage
 
 #### Initialize PaginationStateManager Instance
 
 In order to use `PaginatableList`, first create a `PaginationStateManager` instance. There are two required parameters:
-1. `key`: Redux store key that will be used to store list items
-1. `endpoint url`: Base url for requesting next pages and content.
+
 
 ```
 import { PaginationStateManager } from '@twotalltotems/paginatable-list';
+import Config from 'react-native-config';
 
-const paginationStateManager = new PaginationStateManager('users', 'users');
+const paginationStateManager = new PaginationStateManager('users', `${Config.BASE_API_URL}/users`);
 
 ```
-1. The first param `users` is the key that will be used to store the item list in the Redux store. 
-2. The second param `users` is the paginatable endpoint URL. In this example, the full API endpoint is `http://localhost:3000/users`, and the `base url`, which is `http://localhost:3000`, it's stored in  the `.env` config file (used by `react-native-config`). 
+
+| Parameter   | Description |
+|-------------|-------------|
+| key         |  Redux store key that will be used to store list items. In this example, `users` is the key that will be used to store the item list in the Redux store.  |
+| endpointUrl |  The paginatable endpoint URL for requesting content for each page with pageNumber and pageSize. In this example, `${Config.BASE_API_URL}/users` is the endpointUrl. `Config.BASE_API_URL` is stored in `.env` file. |
 
 #### Link Redux Store
 
@@ -217,3 +231,10 @@ render() {
     )
 }
 ```
+
+## RoadMap
+* [x] Customizable Empty Status of the List.
+* [ ] Remove `reduxsauce` dependency.
+* [x] Make the `endpointUrl` param take a full Url.
+* [ ] 
+ 

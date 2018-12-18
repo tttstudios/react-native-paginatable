@@ -60,3 +60,5 @@ buck-out/
 .env
 PaginatableListExample/demoDB/db.json
 
+# Before release a new versiont to npm. Uncomment the line below to minimize the package size.
+# PaginatableListExample/

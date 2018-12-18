@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Config from 'react-native-config';
 
 export default class PaginateService {
     static getItems({ pageNumberKey, pageSizeKey, pageNumber = 0, pageSize = 5, endpointUrl, ...args}) {
@@ -11,7 +10,6 @@ export default class PaginateService {
         params[pageSizeKey] = pageSize
 
         return axios({
-            baseURL: Config.BASE_API_URL,
             url: endpointUrl,
             params
         });

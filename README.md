@@ -13,8 +13,10 @@ However, it is customizable regarding the item cell appearance, and more actions
 <a href="https://imgflip.com/gif/2nvebz"><img src="https://i.imgflip.com/2nvebz.gif" title="made at imgflip.com"/></a>
 
 ## Installation
-1. `yarn add @twotalltotems/paginatable-list` or `npm install @twotalltotems/paginatable-list --save` 
-2. Install dependencies.
+1. Install paginatable-list
+`yarn add @twotalltotems/paginatable-list` or `npm install @twotalltotems/paginatable-list --save` 
+2. Install dependencies
+`yarn add react-redux && yarn add redux-thunk && yarn add reduxsauce && yarn add axios && yarn add prop-types` or `npm install react-redux && npm install redux-thunk && npm install reduxsauce && npm install axios && npm install prop-types`
 
 
 ## Dependencies
@@ -26,7 +28,6 @@ This project needs the follow dependencies inside your project.
 2. `redux-thunk`
 1. `prop-types`
 1. `axios`
-1. `react-native-config`
 
 
 ## Basic Usage

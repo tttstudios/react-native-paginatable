@@ -26,5 +26,14 @@
   "bugs": {
     "url": "https://github.com/Twotalltotems/react-native-paginatable/issues"
   },
-  "homepage": "https://github.com/Twotalltotems/react-native-paginatable#readme"
+  "homepage": "https://github.com/Twotalltotems/react-native-paginatable#readme",
+  "dependencies": {
+    "redux-thunk": "^2.2.0"
+  },
+  "bundledDependencies": [
+    "reduxsauce"
+  ],
+  "peerDependencies": {
+    "react-redux": "^5.0.6"
+  }
 }

@@ -48,17 +48,17 @@ const paginationStateManager = new PaginationStateManager('users', `${BASE_URL}/
 | Parameter   | Description |
 |-------------|-------------|
 | key         |  Redux store key that will be used to store list items. In this example, `users` is the key that will be used to store the item list in the Redux store.  |
-| endpointUrl |  The paginatable endpoint URL for requesting content for each page with pageNumber and pageSize. In this example, `${Config.BASE_API_URL}/users` is the endpointUrl. `Config.BASE_API_URL` is stored in `.env` file. |
+| endpointUrl |  The paginatable endpoint URL for requesting content for each page with pageNumber and pageSize. In this example, `${BASE_URL}/users` is the endpointUrl. |
 
 #### Link Redux Store
 
 ```
-import { combineReducers, applyMiddleware, compose} from 'redux';
+import { combineReducers, applyMiddleware, compose } from 'redux';
 import Reactotron from 'reactotron-react-native'
 
 const getCombinedReducers = () => {
     return combineReducers({
-        users : paginationStateManager.reducer(), //'users' should be kept the same as the first param in PaginationStateManager instance created in the last step.
+        users : paginationStateManager.reducer(), // 'users' should be kept the same as the first param in PaginationStateManager instance created in the last step.
     });
 }
 
@@ -98,15 +98,15 @@ renderListItem = ({ index, item }) => {
 }
 ```
 
-1. `renderListItem` is used to render specific list item. PaginatableList exists as the scrollable container of the list items that will complete the two most common operations, loading more items and pull-to-refresh, for you. With this in mind, you can use this PaginatableList container to holder whatever you prefer. It could be `View`, `TouchableOpacity`, or your customized component.
-2. In this example, `renderListItem` params `item` is the object within the array that is stored in Redux store. Currently, `PaginationStateManager` is storing whatever the server response. In this example, local server is return an array of objects, and each object contains `id`, `email`, and `password`. Therefore, Redux store is storing by default the exact same format of the object.
+1. `renderListItem` is used to render a specific list item. `PaginatableList` exists as the scrollable container of the list items that will complete for you, the two package operations: loading more items and pull-to-refresh. With this in mind, you can use this `PaginatableList` container to holder whatever you prefer. It could be `View`, `TouchableOpacity`, or your customized component.
+2. In this example, `renderListItem` params `item` is the object within the array that is stored in Redux store. Currently, `PaginationStateManager` is storing whatever the server response is. In this example, the local server is returning an array of objects, and each object contains `id`, `email`, and `password`. Therefore, Redux store is storing by default the exact same format of the object.
 
 
 ### Customization
 
-If you need more than loading more items, and pull-to-refresh, continue reading.
+If you need more than loading more items and pull-to-refresh, continue reading.
 
-For many lists in real life situations, yu would need more than only two common operations for the list. Example for an extra operations could be click to like an item, delete an item, or highlight an item. Below there's an explanation using highlighting an item as example.
+For many lists in real life situations, you would need more than only two common operations for the list. Example for an extra operation could be click a heart icon to like an item, delete an item, or highlight an item. Below there's an explanation for the highlighting example.
 
 #### Subclass PaginationStateManager
 
@@ -124,7 +124,7 @@ export default class CustomizedPaginationStateManager extends PaginationStateMan
 
 #### Add Extra Action
 
-Initialize instance of CustomizedPaginationStateManager, and add extra action to it.
+Initialize instance of `CustomizedPaginationStateManager`, and add extra action to it.
 
 ```
 export const customizedPaginationStateManager = new CustomizedPaginationStateManager('customized_users', 'users')
@@ -180,7 +180,7 @@ render() {
 
 #### Overwrite the Extra Action Handler
 
-Whenever you add extra actions to the subclass instance of `PaginationStateManager`, this library will generate a default handler for you which will dispatch the action directly for you. However, if you would like to do more before dispatching the action, for example, make an API call, you can overwrite the default handler. 
+Whenever you add extra actions to the subclass instance of `PaginationStateManager`, this library will generate a default handler for you which will dispatch the action directly. However, if you would like to do more before dispatching the action (e.g. make an API call), you can overwrite the default handler. 
   
 ```
 import { PaginationStateManager } from '@twotalltotems/paginatable-list';
@@ -211,7 +211,7 @@ renderEmptyStatus = () => {
               	<Image 
             		style={style.emptyStatusLogo} 
             		resizeMode={'contain'} 
-            		source={require('../../Assets/TTTLogo.png')} 
+            		source={require('path/to/image.png')} 
             	/>
                 <Text>Customized Empty Status</Text>
             </View>
@@ -233,9 +233,11 @@ render() {
 }
 ```
 
-## RoadMap
-* [x] Customizable Empty Status of the List.
+## Roadmap
+
+* [x] Customizable list empty status.
 * [ ] Remove `reduxsauce` dependency.
-* [x] Make the `endpointUrl` param take a full Url.
-* [ ] 
+* [x] Make the `endpointUrl` param take a full URL.
+* [ ] Remove Redux as a dependency (also up for public discussion).
+
  

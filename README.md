@@ -1,14 +1,14 @@
 ![PaginatableList](https://raw.githubusercontent.com/Twotalltotems/react-native-paginatable/develop/assets/paginatablelist_banner.jpg?token=AP1X8MZ26iYe8ToP9Rrvc0l7d4ZFYai-ks5cISTxwA%3D%3D)
 # PaginatableList
 
-**PaginatableList** is a list component developed by **TTT Studio** Mobile Team for the purpose of avoiding repetitive logic that handles loading more list items via pagination in the REST API, and pull-to-refresh the entire list. PaginatableList is built on top of React Native's `FlatList`, but we make it be able to manage the list items automatically and store the list items in Redux Store. 
+**PaginatableList** is a list component developed by **TTT Studios** Mobile Team. The purpose is to avoid repetitive logic that handles "loading more" and "pull-to-refresh" actions in a list, via pagination using a REST API. **PaginatableList** is built on top of React Native's `FlatList`, but it's available to manage the list items automatically and store them in Redux store. 
 
 By default, it provides:
 
-*  Reaching the list bottom to load more items after making GET API call.
+*  Reaching the list bottom to load more items after making a GET API call.
 *  Pull-to-refresh the whole list.
 
-However, it is customizable regarding the item cell appearance, and more actions than the two default actions out of the box. 
+However, the item cell appearance is customizable and more actions can be added, independently from the two default actions coming by default in the package.
 
 <a href="https://imgflip.com/gif/2nvebz"><img src="https://i.imgflip.com/2nvebz.gif" title="made at imgflip.com"/></a>
 
@@ -39,9 +39,9 @@ In order to use `PaginatableList`, first create a `PaginationStateManager` insta
 
 ```
 import { PaginationStateManager } from '@twotalltotems/paginatable-list';
-import Config from 'react-native-config';
 
-const paginationStateManager = new PaginationStateManager('users', `${Config.BASE_API_URL}/users`);
+const BASE_URL = 'http://myapi.endpoint';
+const paginationStateManager = new PaginationStateManager('users', `${BASE_URL}/users`);
 
 ```
 

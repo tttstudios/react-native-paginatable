@@ -1,4 +1,4 @@
-![PaginatableList](https://raw.githubusercontent.com/Twotalltotems/react-native-paginatable/develop/assets/paginatablelist_banner.jpg?token=AP1X8MZ26iYe8ToP9Rrvc0l7d4ZFYai-ks5cISTxwA%3D%3D)
+![PaginatableList](https://raw.githubusercontent.com/Twotalltotems/react-native-paginatable/master/assets/paginatablelist_banner.jpg?token=AP1X8BHCtNdfoIF-umaN5b9-3Ih4G2Q9ks5cTl8WwA%3D%3D)
 # PaginatableList
 
 **PaginatableList** is a list component developed by **TTT Studios** Mobile Team. The purpose is to avoid repetitive logic that handles "loading more" and "pull-to-refresh" actions in a list, via pagination using a REST API. **PaginatableList** is built on top of React Native's `FlatList`, but it's available to manage the list items automatically and store them in Redux store. 

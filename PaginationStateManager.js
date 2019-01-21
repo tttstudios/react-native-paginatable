@@ -71,7 +71,7 @@ export default class PaginationStateManager {
                 successCallback()
             })
             .catch(error => {
-                if (__DEV__) console.tron.log(JSON.stringify(error))
+                if (__DEV__) console.log(JSON.stringify(error))
                 errorCallback(error)
             })
         }
@@ -85,7 +85,7 @@ export default class PaginationStateManager {
                 successCallback()
             })
             .catch(error => {
-                if (__DEV__) console.tron.log(JSON.stringify(error))
+                if (__DEV__) console.log(JSON.stringify(error))
                 errorCallback(error)
             })
         }

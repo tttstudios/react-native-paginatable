@@ -10,7 +10,7 @@ class PaginatableList extends Component {
         onRenderItem            : PropTypes.func,
         onRenderEmptyStatus     : PropTypes.func,
         numColumns              : PropTypes.number,
-        extraData               : PropTypes.extraData, //extraData is used to make sure Flatlist will rerender when the object that passed in changes. Otherwise, Flatlist acts as PureComponent.
+        extraData               : PropTypes.object, //extraData is used to make sure Flatlist will rerender when the object that passed in changes. Otherwise, Flatlist acts as PureComponent.
         pageNumberKey           : PropTypes.string,
         pageSizeKey             : PropTypes.string,
         pageSize                : PropTypes.number,
@@ -89,7 +89,7 @@ class PaginatableList extends Component {
     }
 
     onCompleteLoadingMore = () => {
-        if (__DEV__) console.tron.log('Load More Items Completed')
+        if (__DEV__) console.log('Load More Items Completed')
     }
 
     onCompleteRefreshing = () => {

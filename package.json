@@ -15,7 +15,9 @@
     "pull-to-refresh",
     "load-more",
     "auto",
-    "list"
+    "list",
+    "infinite-scrolling",
+    "endless-scrolling"
   ],
   "author": "TTT Studio (https://ttt.studio)",
   "contributors": [

@@ -6,8 +6,12 @@ export default class PaginateService {
         var params = {
             ...args
         }
-        params[pageNumberKey] = pageNumber
-        params[pageSizeKey] = pageSize
+        if (pageNumberKey) {
+            params[pageNumberKey] = pageNumber
+        }
+        if (pageSizeKey) {
+            params[pageSizeKey] = pageSize
+        }
 
         return axios({
             url: endpointUrl,

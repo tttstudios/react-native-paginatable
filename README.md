@@ -246,4 +246,39 @@ render() {
 * [x] Make the `endpointUrl` param take a full URL.
 * [ ] Remove Redux as a dependency (also up for public discussion).
 
- 
+## Contributors
+
+PaginatableList is presented by TTT Studio Mobile Development Team.**
+<table>
+    <tr border="0" style="border: none; ">
+        <th border="0" style="border-left: none; border-right: none;">
+        <div>
+        	<img src="https://avatars3.githubusercontent.com/u/16603120?s=460&v=4" width="80px;" style="border-radius: 50%;"/>
+        	<br />
+        	<sub><a href="https://github.com/BeckyWu220">Becky Wu</a></sub> <br />
+        </div>
+        </th>
+        <th border="0" style="border-left: none; border-right: none;">
+        	<img src="https://avatars3.githubusercontent.com/u/440097?s=460&v=4" width="80px;" style="border-radius: 50%;"/>
+        	<br />
+        	<sub><a href="https://github.com/fpena">Felipe Peña</a></sub> <br />
+        </th>
+    </tr>
+</table>
+<style>
+table {
+    border: 1px solid #FFFFFF;
+    border-collapse: collapse;
+}
+</style>
+## Premium Support 
+
+<div style="display: flex; align-items: center; justify-content: space-between">
+	<img src="https://ttt.studio/wp-content/themes/tttwordpresstheme/imgs/ttt-colour.png" width="200px"/>
+	<div align="right" style="margin-left: 20px;">
+		<h5>Empowering Business Through Technology</h5>
+		<p>We build experiences and solutions for industry leaders and those with their sights set on the future.</p>
+	</div>
+</div>
+
+

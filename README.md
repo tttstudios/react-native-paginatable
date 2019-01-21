@@ -249,15 +249,17 @@ render() {
 ## Contributors
 
 PaginatableList is presented by TTT Studio Mobile Development Team.
-<div style="display: flex; align-items: center; justify-content: flex-start;">
+<div style="display: flex; flex-direction: row; align-items: center; justify-content: flex-start;">
 	<div align="center" style="margin: 5px;">
-		<img src="https://avatars3.githubusercontent.com/u/16603120?s=460&v=4" width="60px;" style="border-radius: 50%;"/>
-		<br />
+		<div style="border-radius: 50%; overflow: hidden; width: 60px; height: 60px;">
+			<img src="https://avatars3.githubusercontent.com/u/16603120?s=460&v=4"/>
+		</div>
 		<sub><a href="https://github.com/BeckyWu220">Becky Wu</a></sub> <br />
 	</div>
 	<div align="center" style="margin: 5px;">
-		<img src="https://avatars3.githubusercontent.com/u/440097?s=460&v=4" width="60px;" style="border-radius: 50%;"/>
-    	<br />
+		<div style="border-radius: 50%; overflow: hidden; width: 60px; height: 60px;">
+			<img src="https://avatars3.githubusercontent.com/u/440097?s=460&v=4"/>
+		</div>
     	<sub><a href="https://github.com/fpena">Felipe Peña</a></sub> <br />
 	</div>
 </div>

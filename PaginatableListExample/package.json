@@ -7,20 +7,24 @@
     "test": "jest"
   },
   "dependencies": {
-    "@twotalltotems/paginatable-list": "^0.0.6",
-    "axios": "^0.17.1",
+    "@twotalltotems/paginatable-list": "^0.0.9",
+    "axios": "^0.18.0",
     "expo": "^25.0.0",
-    "prop-types": "^15.6.0",
+    "prop-types": "^15.6.2",
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-native-config": "^0.11.5",
     "react-navigation": "^2.18.0",
     "react-navigation-redux-helpers": "^2.0.6",
+    "react-redux": "^6.0.0",
     "reactotron-cli": "^1.7.0",
     "reactotron-react-native": "2",
     "reactotron-redux": "^1.13.0",
+    "redux": "^4.0.1",
     "redux-persist": "^5.6.6",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "redux-thunk": "^2.3.0",
+    "reduxsauce": "^1.0.1"
   },
   "devDependencies": {
     "babel-jest": "22.1.0",

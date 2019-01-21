@@ -50,6 +50,10 @@ export default class UserListComponent extends Component {
         )
     }
 
+    keyExtrator = (item, index) => {
+        return item.id
+    }
+
     onPaginatableListLoadError = (error) => {
         const { status } = error.request
         if (status == 0) {
@@ -65,11 +69,10 @@ export default class UserListComponent extends Component {
                     onRenderEmptyStatus={this.renderEmptyStatus}
                     customizedPaginationStateManager={this.props.paginatableListReducer}
                     extraData={this.state.highlightedItemIndex}
-                    // pageSize={10}
-                    // pageSizeKey={'size'}
-                    // pageNumberKey={'page'}
-                    // onLoadMore={this.props.onLoadMore}
-                    // onRefresh={this.props.onRefresh}
+                    keyExtrator={this.keyExtrator}
+                    pageSize={10}
+                    pageSizeKey={'_limit'}
+                    pageNumberKey={'_page'}
                     onLoadError={this.onPaginatableListLoadError}
                 />
             </View>

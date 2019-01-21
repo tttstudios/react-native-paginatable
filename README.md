@@ -248,20 +248,29 @@ render() {
 
 ## Contributors
 
-PaginatableList is presented by TTT Studio Mobile Development Team.
-<div style="display: flex; align-items: center; justify-content: flex-start;">
-	<div align="center" style="margin: 5px;">
-		<img src="https://avatars3.githubusercontent.com/u/16603120?s=460&v=4" width="60px;" style="border-radius: 50%;"/>
-		<br />
-		<sub><a href="https://github.com/BeckyWu220">Becky Wu</a></sub> <br />
-	</div>
-	<div align="center" style="margin: 5px;">
-		<img src="https://avatars3.githubusercontent.com/u/440097?s=460&v=4" width="60px;" style="border-radius: 50%;"/>
-    	<br />
-    	<sub><a href="https://github.com/fpena">Felipe Peña</a></sub> <br />
-	</div>
-</div>
-
+PaginatableList is presented by TTT Studio Mobile Development Team.**
+<table>
+    <tr border="0" style="border: none; ">
+        <th border="0" style="border-left: none; border-right: none;">
+        <div>
+        	<img src="https://avatars3.githubusercontent.com/u/16603120?s=460&v=4" width="80px;" style="border-radius: 50%;"/>
+        	<br />
+        	<sub><a href="https://github.com/BeckyWu220">Becky Wu</a></sub> <br />
+        </div>
+        </th>
+        <th border="0" style="border-left: none; border-right: none;">
+        	<img src="https://avatars3.githubusercontent.com/u/440097?s=460&v=4" width="80px;" style="border-radius: 50%;"/>
+        	<br />
+        	<sub><a href="https://github.com/fpena">Felipe Peña</a></sub> <br />
+        </th>
+    </tr>
+</table>
+<style>
+table {
+    border: 1px solid #FFFFFF;
+    border-collapse: collapse;
+}
+</style>
 ## Premium Support 
 
 <div style="display: flex; align-items: center; justify-content: space-between">

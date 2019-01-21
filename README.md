@@ -16,13 +16,14 @@ However, the item cell appearance is customizable and more actions can be added,
 1. Install paginatable-list
 `yarn add @twotalltotems/paginatable-list` or `npm install @twotalltotems/paginatable-list --save` 
 2. Install dependencies
-`yarn add react-redux && yarn add redux-thunk && yarn add reduxsauce && yarn add axios && yarn add prop-types` or `npm install react-redux && npm install redux-thunk && npm install reduxsauce && npm install axios && npm install prop-types`
+`yarn add redux && yarn add react-redux && yarn add redux-thunk && yarn add reduxsauce && yarn add axios && yarn add prop-types` or `npm install redux && npm install react-redux && npm install redux-thunk && npm install reduxsauce && npm install axios && npm install prop-types`
 
 
 ## Dependencies
 
 This project needs the follow dependencies inside your project.
 
+1. `redux`
 1. `react-redux`
 1. `reduxsauce`
 2. `redux-thunk`
@@ -53,8 +54,8 @@ const paginationStateManager = new PaginationStateManager('users', `${BASE_URL}/
 #### Link Redux Store
 
 ```
-import { combineReducers, applyMiddleware, compose } from 'redux';
-import Reactotron from 'reactotron-react-native'
+import { combineReducers, applyMiddleware, compose, createStore } from 'redux';
+import ReduxThunk from 'redux-thunk';
 
 const getCombinedReducers = () => {
     return combineReducers({
@@ -62,7 +63,7 @@ const getCombinedReducers = () => {
     });
 }
 
-const reduxStore = Reactotron.createStore(
+const reduxStore = createStore(
 	getCombinedReducers(),
 	{}, //Initial State of Redux Store
 	compose(
@@ -74,7 +75,12 @@ const reduxStore = Reactotron.createStore(
 
 #### Use PaginatableList Component
 
-Inside your component, you can use this code. 
+Inside your component, you can use this code. Don't forget to import PaginatableList at the top of the component first.
+
+```
+import PaginatableList from '@twotalltotems/paginatable-list';
+
+```
 
 ```
 render() {

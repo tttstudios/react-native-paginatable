@@ -2,10 +2,10 @@ import { createActions, createReducer } from 'reduxsauce';
 import PaginateService from './PaginateService';
 
 export default class PaginationStateManager {
-    constructor(name, url, responseStructure = null) {
+    constructor(name, url, onParsePaginationResponse = (data) => { return data }) {
         this.name = name
         this.endpointUrl = url
-        this.responseStructure = responseStructure
+        this.onParsePaginationResponse = onParsePaginationResponse
         this.initialState = {
             items: []
         }
@@ -68,11 +68,8 @@ export default class PaginationStateManager {
         return (dispatch) => {
             PaginateService.getItems({ pageNumberKey, pageSizeKey, pageNumber, pageSize, endpointUrl: this.endpointUrl, ...args })
             .then(response => {
-                if (this.responseStructure) {
-                    var subsetKey = Object.keys(this.responseStructure).filter(key => this.responseStructure[key] === 'items')[0]
-                    if (subsetKey) {
-                        dispatch(this.actions.loadMore(response.data[subsetKey]))
-                    }
+                if (this.onParsePaginationResponse) {
+                    dispatch(this.actions.loadMore(this.onParsePaginationResponse(response.data)))
                 } else {
                     dispatch(this.actions.loadMore(response.data))
                 }

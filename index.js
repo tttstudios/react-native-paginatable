@@ -9,6 +9,7 @@ class PaginatableList extends Component {
     static propTypes = {
         onRenderItem            : PropTypes.func,
         onRenderEmptyStatus     : PropTypes.func,
+        onRenderSeparator       : PropTypes.func,
         numColumns              : PropTypes.number,
         extraData               : PropTypes.object, //extraData is used to make sure Flatlist will rerender when the object that passed in changes. Otherwise, Flatlist acts as PureComponent.
         keyExtractor            : PropTypes.func,
@@ -21,12 +22,16 @@ class PaginatableList extends Component {
         onLoadMore              : PropTypes.func, //If you need to handle loadMore on your own. For examplem, you might need to query with more parmas than pageNumber and pageSize. 
         onRefresh               : PropTypes.func, //If you need to handle refresh on your own.
         onLoadError             : PropTypes.func,
-        headers                 : PropTypes.object, //Headers required for making API call.              
+        headers                 : PropTypes.object, //Headers required for making API call.  
+        style                   : PropTypes.object,
+        showsVerticalScrollIndicator            : PropTypes.bool,            
     }
 
     static defaultProps = {
         numColumns      : 1,
         pageSize        : 5,
+        style           : { width: '100%' },
+        showsVerticalScrollIndicator    : true
     }
 
     state = {
@@ -131,6 +136,9 @@ class PaginatableList extends Component {
                 refreshControl={
                     <RefreshControl onRefresh={this.onRefresh} refreshing={this.state.isRefreshing}/>
                 }
+                ItemSeparatorComponent={this.props.onRenderSeparator || undefined}
+                showsVerticalScrollIndicator={this.props.showsVerticalScrollIndicator}
+                style={this.props.style}
             />
         )
     }

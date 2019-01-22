@@ -13,6 +13,7 @@ class PaginatableList extends Component {
         extraData               : PropTypes.object, //extraData is used to make sure Flatlist will rerender when the object that passed in changes. Otherwise, Flatlist acts as PureComponent.
         keyExtractor            : PropTypes.func,
         pageNumberKey           : PropTypes.string,
+        pageNumberStartFrom     : PropTypes.number,
         pageSizeKey             : PropTypes.string,
         pageSize                : PropTypes.number,
         paginatableSourceUrl    : PropTypes.string, // This is the endpoint url that could take pageSize and pageNumber as query params.
@@ -26,6 +27,7 @@ class PaginatableList extends Component {
     static defaultProps = {
         numColumns      : 1,
         pageSize        : 5,
+        pageNumberStartFrom: 0, 
     }
 
     state = {
@@ -63,7 +65,7 @@ class PaginatableList extends Component {
     }
 
     onLoad = () => {
-        this.onLoadMore({ pageNumber: 1 })
+        this.onLoadMore({ pageNumber: this.props.pageNumberStartFrom || 0 })
     }
 
     onLoadMore = ({ pageNumber }) => {

@@ -27,11 +27,10 @@ class PaginatableList extends Component {
     static defaultProps = {
         numColumns      : 1,
         pageSize        : 5,
-        pageNumberStartFrom: 0, 
     }
 
     state = {
-        pageNumber: 1,
+        pageNumber: 0,
         isRefreshing: false
     }
 
@@ -146,9 +145,32 @@ class PaginatableList extends Component {
 
 const mapStateToProps = (state, props) => {
     let reducerName = props.customizedPaginationStateManager.name
-    return {
-        items: state[reducerName] && state[reducerName].items || []
+    var items = []
+    if (props.customizedPaginationStateManager.customizedReducerPath) {
+        var parentPath = props.customizedPaginationStateManager.customizedReducerPath.replace(/\s/g,'')
+        if (parentPath && parentPath !== '') {
+            pathPartials = parentPath.split('.')
+            if (pathPartials.length > 0) {
+                var targetObj = null
+                pathPartials.filter(partial => partial && partial !== '').map((partial, index) => {
+                    if (index === 0) {
+                        targetObj = state[partial]
+                    } else {
+                        targetObj = targetObj[partial]
+                    }
+                })
+                if (targetObj) {
+                    items = targetObj.items || []
+                }
+                return { items }
+            }
+        } else {
+            return {items}
+        }
+        return {items}
     }
+    items = state[reducerName] && state[reducerName].items || []
+    return {items}
 };
 
 const mapDispatchToProps = (dispatch) => ({

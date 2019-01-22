@@ -2,10 +2,12 @@ import { createActions, createReducer } from 'reduxsauce';
 import PaginateService from './PaginateService';
 
 export default class PaginationStateManager {
-    constructor(name, url, onParsePaginationResponse = (data) => { return data }) {
+    constructor(name, url, onParsePaginationResponse = (data) => { return data }, customizedReducerPath = null) {
         this.name = name
         this.endpointUrl = url
         this.onParsePaginationResponse = onParsePaginationResponse
+        this.customizedReducerPath = customizedReducerPath
+
         this.initialState = {
             items: []
         }

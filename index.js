@@ -79,13 +79,13 @@ class PaginatableList extends Component {
     onRefresh = () => {
         const { pageNumberKey, pageSizeKey, pageSize, headers } =  this.props
         this.setState({
-            pageNumber: 1,
+            pageNumber: this.props.pageNumberStartFrom || 0,
             isRefreshing: true
         }, () => {
             if (this.props.onRefresh) {
-                this.props.onRefresh({ onCompleteRefreshing: this.onCompleteRefreshing, headers, pageNumberKey, pageSizeKey, pageSize })
+                this.props.onRefresh({ onCompleteRefreshing: this.onCompleteRefreshing, headers, pageNumberKey, pageSizeKey, pageNumber: this.state.pageNumber, pageSize })
             } else {
-                this.props.dispatch(this.paginationStateManager.refresh({ headers, pageNumberKey, pageSizeKey, pageSize }, this.onCompleteRefreshing, this.onLoadError))
+                this.props.dispatch(this.paginationStateManager.refresh({ headers, pageNumberKey, pageSizeKey, pageNumber: this.state.pageNumber, pageSize }, this.onCompleteRefreshing, this.onLoadError))
             }
         })
     }

@@ -82,14 +82,18 @@ export default class PaginationStateManager {
                 errorCallback(error)
             })
         }
-    };
+    }
 
-    refresh = ({ headers, pageNumberKey, pageSizeKey, pageSize, ...args }, successCallback = () => {}, errorCallback = () => {}) => {
+    refresh = ({ headers, pageNumberKey, pageSizeKey, pageNumber, pageSize, ...args }, successCallback = () => {}, errorCallback = () => {}) => {
         return (dispatch) => {
-            PaginateService.getItems({ headers, pageNumberKey, pageSizeKey, pageNumber: 1, pageSize, endpointUrl: this.endpointUrl, ...args })
+            PaginateService.getItems({ headers, pageNumberKey, pageSizeKey, pageNumber, pageSize, endpointUrl: this.endpointUrl, ...args })
             .then(response => {
-                dispatch(this.actions.refresh(response.data))
-                successCallback()
+                if (this.onParsePaginationResponse) {
+                    dispatch(this.actions.refresh(this.onParsePaginationResponse(response.data)))
+                } else {
+                    dispatch(this.actions.refresh(response.data))
+                }
+                successCallback(response.data)
             })
             .catch(error => {
                 if (__DEV__) console.log(JSON.stringify(error))

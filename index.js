@@ -31,7 +31,8 @@ class PaginatableList extends Component {
 
     state = {
         pageNumber: 0,
-        isRefreshing: false
+        isRefreshing: false,
+        totalPagesNumber: 0,
     }
 
     renderItem = ({ index, item }) => {
@@ -68,6 +69,10 @@ class PaginatableList extends Component {
     }
 
     onLoadMore = ({ pageNumber }) => {
+        if (pageNumber > this.state.totalPagesNumber) {
+            if (__DEV__) console.log('List had been loaded completely!')
+            return
+        }
         const { pageNumberKey, pageSizeKey, pageSize, headers } =  this.props
         if (this.props.onLoadMore) {
             this.props.onLoadMore({ headers, pageNumberKey, pageSizeKey, pageNumber, pageSize })
@@ -90,12 +95,19 @@ class PaginatableList extends Component {
         })
     }
 
-    onCompleteLoadingMore = () => {
+    onCompleteLoadingMore = (totalPagesNumber) => {
         if (__DEV__) console.log('Load More Items Completed')
+        if (totalPagesNumber) {
+            this.setState({ totalPagesNumber })
+        }
     }
 
-    onCompleteRefreshing = () => {
+    onCompleteRefreshing = (totalPagesNumber) => {
+        if (__DEV__) console.log('Refresh List Completed')
         this.setState({ isRefreshing: false })
+        if (totalPagesNumber) {
+            this.setState({ totalPagesNumber })
+        }
     }
 
     onLoadError = (error) => {

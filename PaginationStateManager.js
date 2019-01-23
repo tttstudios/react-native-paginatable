@@ -14,7 +14,8 @@ export default class PaginationStateManager {
 
         this.actionObject = {
             'loadMore'  : ['newItems'],
-            'refresh'   : ['newItems']
+            'refresh'   : ['newItems'],
+            'reset'     : [],
         }
 
         const { Types, Creators } = createActions(this.actionObject, { prefix: `${name.toUpperCase()}_` })
@@ -34,7 +35,13 @@ export default class PaginationStateManager {
                     ...state,
                     items: newItems
                 }
-            }
+            },
+            [Types['RESET']]: (state) => {
+                return {
+                    ...state,
+                    items: []
+                }
+            },
         }
     }
 
@@ -103,6 +110,12 @@ export default class PaginationStateManager {
                 if (__DEV__) console.log(JSON.stringify(error))
                 errorCallback(error)
             })
+        }
+    }
+
+    reset = () => {
+        return (dispatch) => {
+            dispatch(this.actions.reset())
         }
     }
 

@@ -55,6 +55,10 @@ class PaginatableList extends Component {
         this.onLoad()
     }
 
+    componentWillUnmount() {
+        this.props.dispatch(this.paginationStateManager.reset())
+    }
+
     configureReducer() {
         if (this.props.customizedPaginationStateManager) {
             this.paginationStateManager = this.props.customizedPaginationStateManager

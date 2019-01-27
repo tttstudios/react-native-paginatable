@@ -2,7 +2,7 @@ import { createActions, createReducer } from 'reduxsauce';
 import PaginateService from './PaginateService';
 
 export default class PaginationStateManager {
-    constructor(name, url, onParsePaginationResponse = (data) => { return data }, customizedReducerPath = null, requestHeaders = null) {
+    constructor(name, url, onParsePaginationResponse = null, customizedReducerPath = null, requestHeaders = null) {
         this.name = name
         this.endpointUrl = url
         this.onParsePaginationResponse = onParsePaginationResponse
@@ -86,7 +86,7 @@ export default class PaginationStateManager {
             var headers = {}
             try {
                 headers = await this.getHeaders()
-                if (__DEV__) console.log(`HTTP Headers: ${headers}`)
+                if (__DEV__) console.log(`HTTP Headers: ${JSON.stringify(headers, undefined, 2)}`)
             } catch (err) {
                 if (__DEV__) console.log(`No HTTP Headers Available: ${err}`)
             }
@@ -116,7 +116,7 @@ export default class PaginationStateManager {
             var headers = {}
             try {
                 headers = await this.getHeaders()
-                if (__DEV__) console.log(`HTTP Headers: ${headers}`)
+                if (__DEV__) console.log(`HTTP Headers: ${JSON.stringify(headers, undefined, 2)}`)
             } catch (err) {
                 if (__DEV__) console.log(`No HTTP Header Available: ${err}`)
             }

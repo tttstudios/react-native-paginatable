@@ -61,6 +61,7 @@ const paginationStateManager = new PaginationStateManager('users', `${BASE_URL}/
 | endpointUrl |  The paginatable endpoint URL for requesting content for each page with pageNumber and pageSize. In this example, `${BASE_URL}/users` is the endpointUrl. |
 | onParsePaginationResponse | Depends on the different structure of the API response, this method is required to parse list item out of the whole response data. This method needs to return a javascript object that contains key `items` which holds the array of items in the list. |
 | customizedReducerPath | Optional. This paramter is required unless you'd like to embed pagination reducer into another reduer. Please refer Customization section for more details.|
+| requestHeaders | Optional. Pass in this paramter if the pagination server needs HTTP headers. This parameter requires a Promise.|
 
 #### Link Redux Store
 
@@ -133,7 +134,8 @@ renderListItem = ({ index, item }) => {
 | onLoadMore | Overwrite list loading more items if you need to handle loadMore on your own. For examplem, you might need to query with more parmas than pageNumber and pageSize.  |
 | onRefresh | Overwrite list refreshing method if you need to handle refresh on your own. |
 | onLoadError | Handle the loading error. |
-| headers | Headers required for making API call.   |
+
+
 Besides, PaginatableList accpets props of FlatList that include `numColumns`, `extraData`, `keyExtractor`, `style`, and `showsVerticalScrollIndicator`.
 
 ### Customization
@@ -270,6 +272,29 @@ export default class CustomizedPaginationStateManager extends PaginationStateMan
         }
     }; 
 }
+```
+
+#### Customize HTTP Request Headers
+When accessing a paginatable endpoint that requires HTTP headers, we need to pass in the `requestHeader` parameter in the constructor of PaginationStateManager. For example, the endpoint needs a token from the headers to access. 
+
+```
+const getRequestHeaders = async() => {
+    const token = await AsyncStorage.getItem('TOKEN')
+    if (token) {
+        const headers = {
+            Accept : 'application/json', 
+            Authorization : `Bearer ${token}`
+        }
+        return headers
+    }
+
+    return {
+        Accept : 'application/json'
+    }
+}
+
+const paginationStateManager = new PaginationStateManager('users', `${BASE_URL}/users`, onParseResponseData, 'users', getRequestHeaders );
+
 ```
 
 #### Customize Empty Status

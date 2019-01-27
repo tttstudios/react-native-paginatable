@@ -78,9 +78,9 @@ export default class PaginationStateManager {
             PaginateService.getItems({ headers, pageNumberKey, pageSizeKey, pageNumber, pageSize, endpointUrl: this.endpointUrl, ...args })
             .then(response => {
                 if (this.onParsePaginationResponse) {
-                    const { items, totalPagesNumber } = this.onParsePaginationResponse(response.data)
+                    const { items } = this.onParsePaginationResponse(response.data)
                     dispatch(this.actions.loadMore(items || []))
-                    successCallback(totalPagesNumber)
+                    successCallback(response.data)
                 } else {
                     dispatch(this.actions.loadMore(response.data))
                     successCallback()
@@ -98,9 +98,9 @@ export default class PaginationStateManager {
             PaginateService.getItems({ headers, pageNumberKey, pageSizeKey, pageNumber, pageSize, endpointUrl: this.endpointUrl, ...args })
             .then(response => {
                 if (this.onParsePaginationResponse) {
-                    const { items, totalPagesNumber } = this.onParsePaginationResponse(response.data)
+                    const { items } = this.onParsePaginationResponse(response.data)
                     dispatch(this.actions.refresh(items || []))
-                    successCallback(totalPagesNumber)
+                    successCallback(response.data)
                 } else {
                     dispatch(this.actions.refresh(response.data))
                     successCallback()

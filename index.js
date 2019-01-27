@@ -22,7 +22,6 @@ class PaginatableList extends Component {
         onLoadMore              : PropTypes.func, //If you need to handle loadMore on your own. For examplem, you might need to query with more parmas than pageNumber and pageSize. 
         onRefresh               : PropTypes.func, //If you need to handle refresh on your own.
         onLoadError             : PropTypes.func,
-        headers                 : PropTypes.object, //Headers required for making API call.  
         style                   : PropTypes.object,
         showsVerticalScrollIndicator            : PropTypes.bool,            
     }
@@ -82,24 +81,24 @@ class PaginatableList extends Component {
             if (__DEV__) console.log('List had been loaded completely!')
             return
         }
-        const { pageNumberKey, pageSizeKey, pageSize, headers } =  this.props
+        const { pageNumberKey, pageSizeKey, pageSize } =  this.props
         if (this.props.onLoadMore) {
-            this.props.onLoadMore({ headers, pageNumberKey, pageSizeKey, pageNumber, pageSize })
+            this.props.onLoadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize })
         } else {
-            this.props.dispatch(this.paginationStateManager.loadMore({ headers, pageNumberKey, pageSizeKey, pageNumber, pageSize }, this.onCompleteLoadingMore, this.onLoadError))
+            this.props.dispatch(this.paginationStateManager.loadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize }, this.onCompleteLoadingMore, this.onLoadError))
         }
     }
 
     onRefresh = () => {
-        const { pageNumberKey, pageSizeKey, pageSize, headers } =  this.props
+        const { pageNumberKey, pageSizeKey, pageSize } =  this.props
         this.setState({
             pageNumber: this.props.pageNumberStartFrom || 0,
             isRefreshing: true
         }, () => {
             if (this.props.onRefresh) {
-                this.props.onRefresh({ onCompleteRefreshing: this.onCompleteRefreshing, headers, pageNumberKey, pageSizeKey, pageNumber: this.state.pageNumber, pageSize })
+                this.props.onRefresh({ onCompleteRefreshing: this.onCompleteRefreshing, pageNumberKey, pageSizeKey, pageNumber: this.state.pageNumber, pageSize })
             } else {
-                this.props.dispatch(this.paginationStateManager.refresh({ headers, pageNumberKey, pageSizeKey, pageNumber: this.state.pageNumber, pageSize }, this.onCompleteRefreshing, this.onLoadError))
+                this.props.dispatch(this.paginationStateManager.refresh({ pageNumberKey, pageSizeKey, pageNumber: this.state.pageNumber, pageSize }, this.onCompleteRefreshing, this.onLoadError))
             }
         })
     }

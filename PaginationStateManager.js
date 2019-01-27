@@ -14,9 +14,10 @@ export default class PaginationStateManager {
         }
 
         this.actionObject = {
-            'loadMore'  : ['newItems'],
-            'refresh'   : ['newItems'],
-            'reset'     : [],
+            'loadMore'      : ['newItems'],
+            'refresh'       : ['newItems'],
+            'reset'         : [],
+            'setTotalPage'  : ['totalPagesNumber'],
         }
 
         const { Types, Creators } = createActions(this.actionObject, { prefix: `${name.toUpperCase()}_` })
@@ -43,6 +44,12 @@ export default class PaginationStateManager {
                     items: []
                 }
             },
+            [Types['SET_TOTAL_PAGE']]: (state, { totalPagesNumber }) => {
+                return {
+                    ...state,
+                    totalPagesNumber
+                }
+            }
         }
     }
 
@@ -86,9 +93,12 @@ export default class PaginationStateManager {
             PaginateService.getItems({ headers, pageNumberKey, pageSizeKey, pageNumber, pageSize, endpointUrl: this.endpointUrl, ...args })
             .then(response => {
                 if (this.onParsePaginationResponse) {
-                    const { items } = this.onParsePaginationResponse(response.data)
+                    const { items, totalPagesNumber } = this.onParsePaginationResponse(response.data)
                     dispatch(this.actions.loadMore(items || []))
-                    successCallback(response.data)
+                    if (totalPagesNumber) {
+                        dispatch(this.actions.setTotalPage(totalPagesNumber))
+                    }
+                    successCallback()
                 } else {
                     dispatch(this.actions.loadMore(response.data))
                     successCallback()
@@ -113,9 +123,12 @@ export default class PaginationStateManager {
             PaginateService.getItems({ headers, pageNumberKey, pageSizeKey, pageNumber, pageSize, endpointUrl: this.endpointUrl, ...args })
             .then(response => {
                 if (this.onParsePaginationResponse) {
-                    const { items } = this.onParsePaginationResponse(response.data)
+                    const { items, totalPagesNumber } = this.onParsePaginationResponse(response.data)
                     dispatch(this.actions.refresh(items || []))
-                    successCallback(response.data)
+                    if (totalPagesNumber) {
+                        dispatch(this.actions.setTotalPage(totalPagesNumber))
+                    }
+                    successCallback()
                 } else {
                     dispatch(this.actions.refresh(response.data))
                     successCallback()
@@ -132,6 +145,12 @@ export default class PaginationStateManager {
     reset = () => {
         return (dispatch) => {
             dispatch(this.actions.reset())
+        }
+    }
+
+    setTotalPage = (totalPagesNumber) => {
+        return (dispatch) => {
+            dispatch(this.actions.setTotalPage(totalPagesNumber))
         }
     }
 

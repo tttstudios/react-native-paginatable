@@ -36,7 +36,6 @@ class PaginatableList extends Component {
     state = {
         pageNumber: 0,
         isRefreshing: false,
-        totalPagesNumber: null,
     }
 
     renderItem = ({ index, item }) => {
@@ -77,7 +76,7 @@ class PaginatableList extends Component {
     }
 
     onLoadMore = ({ pageNumber }) => {
-        if (this.state.totalPagesNumber && pageNumber > this.state.totalPagesNumber) {
+        if (this.props.totalPagesNumber && pageNumber > this.props.totalPagesNumber) {
             if (__DEV__) console.log('List had been loaded completely!')
             return
         }
@@ -103,19 +102,13 @@ class PaginatableList extends Component {
         })
     }
 
-    onCompleteLoadingMore = ({totalPagesNumber}) => {
+    onCompleteLoadingMore = () => {
         if (__DEV__) console.log('Load More Items Completed')
-        if (totalPagesNumber) {
-            this.setState({ totalPagesNumber })
-        }
     }
 
-    onCompleteRefreshing = ({totalPagesNumber}) => {
+    onCompleteRefreshing = () => {
         if (__DEV__) console.log('Refresh List Completed')
         this.setState({ isRefreshing: false })
-        if (totalPagesNumber) {
-            this.setState({ totalPagesNumber })
-        }
     }
 
     onLoadError = (error) => {
@@ -169,6 +162,7 @@ class PaginatableList extends Component {
 const mapStateToProps = (state, props) => {
     let reducerName = props.customizedPaginationStateManager.name
     var items = []
+    var totalPagesNumber = null
     if (props.customizedPaginationStateManager.customizedReducerPath) {
         var parentPath = props.customizedPaginationStateManager.customizedReducerPath.replace(/\s/g,'')
         if (parentPath && parentPath !== '') {
@@ -184,16 +178,18 @@ const mapStateToProps = (state, props) => {
                 })
                 if (targetObj) {
                     items = targetObj.items || []
+                    totalPagesNumber = targetObj.totalPagesNumber || null
                 }
-                return { items }
+                return { items, totalPagesNumber }
             }
         } else {
-            return {items}
+            return {items, totalPagesNumber}
         }
-        return {items}
+        return {items, totalPagesNumber}
     }
     items = state[reducerName] && state[reducerName].items || []
-    return {items}
+    totalPagesNumber = state[reducerName] && state[reducerName].totalPagesNumber || null
+    return {items, totalPagesNumber}
 };
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,6 +1,6 @@
 {
   "name": "@twotalltotems/paginatable-list",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "A self-managed list with pagination.",
   "main": "index.js",
   "scripts": {

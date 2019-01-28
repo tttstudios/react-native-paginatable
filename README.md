@@ -369,15 +369,8 @@ const reduxStore = createStore(
 * [ ] Remove `reduxsauce` dependency.
 * [ ] Remove Redux as a dependency.
 
-## Premium Support By TTT Studio
 
-PaginatableList is presented by [TTT Studio](https://ttt.studio) Mobile Development Team. We build experiences and solutions for industry leaders and those with their sights set on the future.
-
-<div align="right">
-	<img src="https://ttt.studio/wp-content/themes/tttwordpresstheme/imgs/ttt-colour.png" width="200px"/>
-	<h5>Empowering Business Through Technology</h5>
-</div>
-
+## Contributors
 <table>
     <tr border="0" style="border: none; ">
         <th border="0" style="border-left: none; border-right: none;">
@@ -392,7 +385,46 @@ PaginatableList is presented by [TTT Studio](https://ttt.studio) Mobile Developm
         	<br />
         	<sub><a href="https://github.com/fpena">Felipe Peña</a></sub> <br />
         </th>
+        <th border="0" style="border-left: none; border-right: none;">
+        	<img src="https://avatars3.githubusercontent.com/u/3868329?s=460&v=4" width="60px;" style="border-radius: 50%;"/>
+        	<br />
+        	<sub><a href="https://github.com/VinsonLi">Vinson Li</a></sub> <br />
+        </th>
+        <th border="0" style="border-left: none; border-right: none;">
+        	<img src="https://avatars1.githubusercontent.com/u/1243479?s=400&v=4" width="60px;" style="border-radius: 50%;"/>
+        	<br />
+        	<sub><a href="https://github.com/ansonyao">Anson Yao</a></sub> <br />
+        </th>
+        <th border="0" style="border-left: none; border-right: none;">
+        	<img src="https://avatars1.githubusercontent.com/u/1243479?s=400&v=4" width="60px;" style="border-radius: 50%;"/>
+        	<br />
+        	<sub><a href="https://github.com/ansonyao">Anson Yao</a></sub> <br />
+        </th>
+        <th border="0" style="border-left: none; border-right: none;">
+        	<img src="https://avatars0.githubusercontent.com/u/15810133?s=400&v=4" width="60px;" style="border-radius: 50%;"/>
+        	<br />
+        	<sub><a href="https://github.com/felixcck">Felix Cheng</a></sub> <br />
+        </th>
+        <th border="0" style="border-left: none; border-right: none;">
+        	<img src="https://avatars3.githubusercontent.com/u/10748192?s=460&v=4" width="60px;" style="border-radius: 50%;"/>
+        	<br />
+        	<sub><a href="https://github.com/MitchellGanton">Mitchell Ganton</a></sub> <br />
+        </th>
+        <th border="0" style="border-left: none; border-right: none;">
+        	<img src="https://avatars0.githubusercontent.com/u/36147173?s=460&v=4" width="60px;" style="border-radius: 50%;"/>
+        	<br />
+        	<sub><a href="https://github.com/gordonzhang17">Gordan Zhang</a></sub> <br />
+        </th>
     </tr>
 </table>
 
+
+## Premium Support By TTT Studios
+
+Paginatable List is presented by the mobile team at [TTT Studios](https://ttt.studio). We are a Digital Innovation Studio based out of Vancouver, Canada, delivering custom software and solutions that are designed and developed 100% in-house. The technologies we work with include AR & VR, IoT, AI, security & encryption, and cloud computing.
+
+<div align="right">
+	<img src="https://ttt.studio/wp-content/themes/tttwordpresstheme/imgs/ttt-colour.png" width="200px"/>
+	<h5>Empowering Business Through Technology</h5>
+</div>
 

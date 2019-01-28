@@ -57,6 +57,10 @@ export default class PaginationStateManager {
         return createReducer(this.initialState, this.actionHandlers)
     }
 
+    setEndpointUrl = (url) => {
+        this.endpointUrl = url
+    }
+
     addAction({ type, payload, handler }) {
         let handlerName = type.split(/(?=[A-Z])/).join('_').toUpperCase();
 

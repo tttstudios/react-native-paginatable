@@ -157,8 +157,9 @@ Defaultly, PaginatableList will only use `pageSize` and `pageNumber` as query pa
 
 ```
 onLoadMore = ({ ...args }) => {
-    this.props.dispatch(paginationStateManager.loadMore({		 ...args,
-        keyword: 'keyword'
+    this.props.dispatch(paginationStateManager.loadMore({
+		...args,
+    	keyword: 'keyword'
     }))
 }
 
@@ -171,6 +172,18 @@ onRefresh = ({onCompleteRefreshing, ...args}) => {
     }))
 }
 
+```
+
+#### Dynamic Segments in the Endpoint Url
+If you have dynamic segments in the endpoint url, for example, `/user/:user_id`. Use `setEndpointUrl` method of PaginationStateManager to overwrite the endpoint Url before passing the PaginationStateManager instance to PaginatableList.
+
+```
+const BASE_URL = 'http://myapi.endpoint';
+const userId = 1;
+
+componentWillMount() {
+     paginationStateManager.setEndpointUrl(`${BASE_URL}/users/${userId}`)
+}
 ```
 
 #### Subclass PaginationStateManager

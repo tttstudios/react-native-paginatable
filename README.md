@@ -409,9 +409,9 @@ const reduxStore = createStore(
         	<sub><a href="https://github.com/ansonyao">Anson Yao</a></sub> <br />
         </th>
         <th border="0" style="border-left: none; border-right: none;">
-        	<img src="https://avatars1.githubusercontent.com/u/1243479?s=400&v=4" width="60px;" style="border-radius: 50%;"/>
+        	<img src="https://avatars3.githubusercontent.com/u/22039602?s=400&v=4" width="60px;" style="border-radius: 50%;"/>
         	<br />
-        	<sub><a href="https://github.com/ansonyao">Anson Yao</a></sub> <br />
+        	<sub><a href="https://github.com/gokulraj-ece">Gokul Kumar</a></sub> <br />
         </th>
         <th border="0" style="border-left: none; border-right: none;">
         	<img src="https://avatars0.githubusercontent.com/u/15810133?s=400&v=4" width="60px;" style="border-radius: 50%;"/>

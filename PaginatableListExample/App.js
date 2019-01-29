@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import './ReactotronConfig';
 import { reduxStore } from '@Components/Store';
 import { Provider } from 'react-redux'
 import  AppWithNavigationState from '@Components/Router';

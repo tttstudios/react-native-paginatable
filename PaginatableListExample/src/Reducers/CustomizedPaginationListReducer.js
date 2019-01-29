@@ -7,7 +7,7 @@ export default class CustomizedPaginationStateManager extends PaginationStateMan
     }
 
     highlightItem = ({ index, extra }) => {
-        console.tron.log('Overwrite Default highlightItem() function. For example, you might need to do network call before dispatch an action.')
+        // Overwrite Default highlightItem() function. For example, you might need to do network call before dispatch an action.
         return (dispatch) => {
             dispatch(this.actions.highlightItem(index, extra))
         }

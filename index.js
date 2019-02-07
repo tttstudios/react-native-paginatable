@@ -23,13 +23,15 @@ class PaginatableList extends Component {
         onRefresh               : PropTypes.func, //If you need to handle refresh on your own.
         onLoadError             : PropTypes.func,
         style                   : PropTypes.object,
+        contentContainerStyle   : PropTypes.object,
         showsVerticalScrollIndicator            : PropTypes.bool,            
     }
 
     static defaultProps = {
-        numColumns      : 1,
-        pageSize        : 5,
-        style           : { width: '100%' },
+        numColumns                      : 1,
+        pageSize                        : 5,
+        style                           : { width: '100%' },
+        contentContainerStyle           : {}, 
         showsVerticalScrollIndicator    : true
     }
 
@@ -135,6 +137,7 @@ class PaginatableList extends Component {
                 ItemSeparatorComponent={this.props.onRenderSeparator || undefined}
                 showsVerticalScrollIndicator={this.props.showsVerticalScrollIndicator}
                 style={this.props.style}
+                contentContainerStyle={this.props.contentContainerStyle}
             />
         )
     }

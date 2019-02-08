@@ -45,9 +45,11 @@ import { PaginationStateManager } from '@twotalltotems/paginatable-list';
 const BASE_URL = 'http://myapi.endpoint';
 
 const onParseResponseData = (data) => {
-    const { results } = data
+    // From the response, an array of items and total pages value are required to setup the manager
+    const { results, totalPages } = data
     return {
-        items: results
+        items: results,
+	totalPagesNumber: totalPages
     }
 }
 

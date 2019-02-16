@@ -138,7 +138,7 @@ renderListItem = ({ index, item }) => {
 | onLoadError | Handle the loading error. |
 
 
-Besides, PaginatableList accpets props of FlatList that include `numColumns`, `extraData`, `keyExtractor`, `style`, and `showsVerticalScrollIndicator`.
+Besides, PaginatableList accepts props of FlatList that include `numColumns`, `extraData`, `keyExtractor`, `style`, and `showsVerticalScrollIndicator`.
 
 ### Customization
 

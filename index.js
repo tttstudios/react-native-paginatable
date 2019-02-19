@@ -23,22 +23,25 @@ class PaginatableList extends Component {
         onRefresh               : PropTypes.func, //If you need to handle refresh on your own.
         onLoadError             : PropTypes.func,
         style                   : PropTypes.object,
-        contentContainerStyle   : PropTypes.object,
         showsVerticalScrollIndicator            : PropTypes.bool,            
     }
 
     static defaultProps = {
-        numColumns                      : 1,
-        pageSize                        : 5,
-        style                           : { width: '100%' },
-        contentContainerStyle           : {}, 
+        numColumns      : 1,
+        pageSize        : 5,
+        style           : { width: '100%' },
         showsVerticalScrollIndicator    : true
     }
 
-    state = {
-        pageNumber: 0,
-        isRefreshing: false,
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            pageNumber: this.props.pageNumberStartFrom || 1,
+            isRefreshing: false,
+        }
     }
+    
 
     renderItem = ({ index, item }) => {
         return (
@@ -66,34 +69,37 @@ class PaginatableList extends Component {
     }
 
     onReachedListEnd = () => {
-        this.setState({
-            pageNumber: this.state.pageNumber + 1
-        }, () => {
-            this.onLoadMore({ pageNumber: this.state.pageNumber })
-        })
+        this.onLoadMore() 
     }
 
     onLoad = () => {
-        this.onLoadMore({ pageNumber: this.props.pageNumberStartFrom || 0 })
+        this.onLoadMore()
     }
 
-    onLoadMore = ({ pageNumber }) => {
+    onLoadMore = () => {
+        const pageNumber = this.state.pageNumber
+
         if (this.props.totalPagesNumber && pageNumber > this.props.totalPagesNumber) {
             if (__DEV__) console.log('List had been loaded completely!')
             return
         }
+        
         const { pageNumberKey, pageSizeKey, pageSize } =  this.props
         if (this.props.onLoadMore) {
             this.props.onLoadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize })
         } else {
             this.props.dispatch(this.paginationStateManager.loadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize }, this.onCompleteLoadingMore, this.onLoadError))
         }
+
+        this.setState({
+            pageNumber: this.state.pageNumber + 1
+        })
     }
 
     onRefresh = () => {
         const { pageNumberKey, pageSizeKey, pageSize } =  this.props
         this.setState({
-            pageNumber: this.props.pageNumberStartFrom || 0,
+            pageNumber: this.props.pageNumberStartFrom || 1,
             isRefreshing: true
         }, () => {
             if (this.props.onRefresh) {
@@ -137,7 +143,6 @@ class PaginatableList extends Component {
                 ItemSeparatorComponent={this.props.onRenderSeparator || undefined}
                 showsVerticalScrollIndicator={this.props.showsVerticalScrollIndicator}
                 style={this.props.style}
-                contentContainerStyle={this.props.contentContainerStyle}
             />
         )
     }

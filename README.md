@@ -132,10 +132,12 @@ renderListItem = ({ index, item }) => {
 | pageNumberKey | The key of page number in HTTP request. |
 | pageSizeKey | The key of page size in HTTP request. |
 | pageSize | Maximum amount of items that are returned in each request. |
-| pageNumberStartFrom | starting page of the list. |
+| pageNumberStartFrom | Starting page of the list (by default it starts from 1). |
 | onLoadMore | Overwrite list loading more items if you need to handle loadMore on your own. For examplem, you might need to query with more parmas than pageNumber and pageSize.  |
 | onRefresh | Overwrite list refreshing method if you need to handle refresh on your own. |
 | onLoadError | Handle the loading error. |
+
+If you want to set `pageNumberStartFrom` with 0, you would need to provide the proper `totalPagesNumber` in the [`onParseResponseData`](#initialize-paginationstatemanager-instance).
 
 
 Besides, PaginatableList accepts props of FlatList that include `numColumns`, `extraData`, `keyExtractor`, `style`, and `showsVerticalScrollIndicator`.

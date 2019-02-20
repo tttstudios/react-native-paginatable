@@ -7,6 +7,7 @@ import style from './style';
 
 class PaginatableList extends Component {
     static propTypes = {
+        refName                 : PropTypes.string,
         onRenderItem            : PropTypes.func,
         onRenderEmptyStatus     : PropTypes.func,
         onRenderSeparator       : PropTypes.func,
@@ -28,6 +29,7 @@ class PaginatableList extends Component {
     }
 
     static defaultProps = {
+        refName         : "",
         numColumns      : 1,
         pageSize        : 5,
         style           : { width: '100%' },
@@ -41,9 +43,9 @@ class PaginatableList extends Component {
         this.state = {
             pageNumber: this.props.pageNumberStartFrom || 1,
             isRefreshing: false,
+            loading: false,
         }
     }
-    
 
     renderItem = ({ index, item }) => {
         return (
@@ -55,12 +57,17 @@ class PaginatableList extends Component {
         )
     }
 
+    componentDidMount() {
+        this.props.onRef(this)
+      }
+
     componentWillMount() {
         this.configureReducer()
         this.onLoad()
     }
 
     componentWillUnmount() {
+        this.props.onRef(null)
         this.props.dispatch(this.paginationStateManager.reset())
     }
 
@@ -81,20 +88,30 @@ class PaginatableList extends Component {
     onLoadMore = () => {
         const pageNumber = this.state.pageNumber
 
+        if (this.state.loading) {
+            return 
+        }
+
         if (this.props.totalPagesNumber && pageNumber > this.props.totalPagesNumber) {
             if (__DEV__) console.log('List had been loaded completely!')
             return
         }
-        
-        const { pageNumberKey, pageSizeKey, pageSize } =  this.props
-        if (this.props.onLoadMore) {
-            this.props.onLoadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize })
-        } else {
-            this.props.dispatch(this.paginationStateManager.loadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize }, this.onCompleteLoadingMore, this.onLoadError))
-        }
 
         this.setState({
-            pageNumber: this.state.pageNumber + 1
+            loading: true
+        }, () => {
+               
+            const { pageNumberKey, pageSizeKey, pageSize } =  this.props
+            if (this.props.onLoadMore) {
+                this.props.onLoadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize })
+            } else {
+                this.props.dispatch(this.paginationStateManager.loadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize }, this.onCompleteLoadingMore, this.onLoadError))
+            }
+
+            this.setState({
+                loading: false,
+                pageNumber: this.state.pageNumber + 1
+            })
         })
     }
 
@@ -109,6 +126,10 @@ class PaginatableList extends Component {
             } else {
                 this.props.dispatch(this.paginationStateManager.refresh({ pageNumberKey, pageSizeKey, pageNumber: this.state.pageNumber, pageSize }, this.onCompleteRefreshing, this.onLoadError))
             }
+
+            this.setState({
+                pageNumber: this.state.pageNumber + 1
+            })
         })
     }
 

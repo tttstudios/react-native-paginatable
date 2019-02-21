@@ -13,6 +13,7 @@ class PaginatableList extends Component {
         onRenderSeparator       : PropTypes.func,
         numColumns              : PropTypes.number,
         extraData               : PropTypes.object, //extraData is used to make sure Flatlist will rerender when the object that passed in changes. Otherwise, Flatlist acts as PureComponent.
+        key                     : PropTypes.string,
         keyExtractor            : PropTypes.func,
         pageNumberKey           : PropTypes.string,
         pageNumberStartFrom     : PropTypes.number,
@@ -154,6 +155,7 @@ class PaginatableList extends Component {
         return (
             <FlatList
                 data={this.props.items || []}
+                key={this.props.key || undefined}
                 keyExtractor={this.props.keyExtractor || undefined}
                 extraData={this.props.extraData || undefined}
                 renderItem={this.props.onRenderItem || this.renderItem}

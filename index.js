@@ -59,7 +59,9 @@ class PaginatableList extends Component {
     }
 
     componentDidMount() {
-        this.props.onRef(this)
+        if (this.props.onRef) {
+            this.props.onRef(this)
+        }
       }
 
     componentWillMount() {
@@ -68,7 +70,10 @@ class PaginatableList extends Component {
     }
 
     componentWillUnmount() {
-        this.props.onRef(null)
+        if (this.props.onRef) {
+            this.props.onRef(null)
+        }
+        
         this.props.dispatch(this.paginationStateManager.reset())
     }
 

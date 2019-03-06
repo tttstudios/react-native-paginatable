@@ -30,10 +30,11 @@ class PaginatableList extends Component {
     }
 
     static defaultProps = {
-        refName         : "",
-        numColumns      : 1,
-        pageSize        : 5,
-        style           : { width: '100%' },
+        refName             : "",
+        numColumns          : 1,
+        pageNumberStartFrom : 1, 
+        pageSize            : 5,
+        style               : { width: '100%' },
         contentContainerStyle           : {}, 
         showsVerticalScrollIndicator    : true
     }
@@ -42,7 +43,7 @@ class PaginatableList extends Component {
         super(props)
 
         this.state = {
-            pageNumber: this.props.pageNumberStartFrom || 1,
+            pageNumber: this.props.pageNumberStartFrom,
             isRefreshing: false,
             loading: false,
         }
@@ -124,7 +125,7 @@ class PaginatableList extends Component {
     onRefresh = () => {
         const { pageNumberKey, pageSizeKey, pageSize } =  this.props
         this.setState({
-            pageNumber: this.props.pageNumberStartFrom || 1,
+            pageNumber: this.props.pageNumberStartFrom,
             isRefreshing: true
         }, () => {
             if (this.props.onRefresh) {
@@ -152,6 +153,7 @@ class PaginatableList extends Component {
         if (this.props.onLoadError) {
             this.props.onLoadError(error)
         }
+        this.setState({ isRefreshing: false })
     }
 
     keyExtractor = (item, index) => item.id;
@@ -171,6 +173,7 @@ class PaginatableList extends Component {
                     <RefreshControl onRefresh={this.onRefresh} refreshing={this.state.isRefreshing}/>
                 }
                 ItemSeparatorComponent={this.props.onRenderSeparator || undefined}
+                ListEmptyComponent={this.renderEmptyStatus}
                 showsVerticalScrollIndicator={this.props.showsVerticalScrollIndicator}
                 style={this.props.style}
                 contentContainerStyle={this.props.contentContainerStyle}
@@ -191,10 +194,7 @@ class PaginatableList extends Component {
     }
 
     render() {
-        if (this.props.items && this.props.items.length > 0) {
-            return this.renderList()
-        }
-        return this.renderEmptyStatus()
+        return this.renderList()
     }
 }
 

@@ -63,11 +63,12 @@ class PaginatableList extends Component {
         if (this.props.onRef) {
             this.props.onRef(this)
         }
-      }
+        this.onLoad()
+    }
 
     componentWillMount() {
         this.configureReducer()
-        this.onLoad()
+        // this.onLoad()
     }
 
     componentWillUnmount() {
@@ -122,11 +123,11 @@ class PaginatableList extends Component {
         })
     }
 
-    onRefresh = () => {
+    onRefresh = (refreshControl = true) => {
         const { pageNumberKey, pageSizeKey, pageSize } =  this.props
         this.setState({
             pageNumber: this.props.pageNumberStartFrom,
-            isRefreshing: true
+            isRefreshing: refreshControl ? true : false
         }, () => {
             if (this.props.onRefresh) {
                 this.props.onRefresh({ onCompleteRefreshing: this.onCompleteRefreshing, pageNumberKey, pageSizeKey, pageNumber: this.state.pageNumber, pageSize })

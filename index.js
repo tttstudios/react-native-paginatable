@@ -26,7 +26,9 @@ class PaginatableList extends Component {
         onLoadError             : PropTypes.func,
         style                   : PropTypes.object,
         showsVerticalScrollIndicator            : PropTypes.bool,            
-        contentContainerStyle   : PropTypes.object
+        contentContainerStyle   : PropTypes.object,
+        onCompleteRefresh       : PropTypes.func,
+        onCompleteLoadMore      : PropTypes.func,
     }
 
     static defaultProps = {
@@ -111,7 +113,7 @@ class PaginatableList extends Component {
                
             const { pageNumberKey, pageSizeKey, pageSize } =  this.props
             if (this.props.onLoadMore) {
-                this.props.onLoadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize })
+                this.props.onLoadMore({ onCompleteLoadingMore: this.onCompleteLoadingMore, pageNumberKey, pageSizeKey, pageNumber, pageSize})
             } else {
                 this.props.dispatch(this.paginationStateManager.loadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize }, this.onCompleteLoadingMore, this.onLoadError))
             }
@@ -143,11 +145,18 @@ class PaginatableList extends Component {
 
     onCompleteLoadingMore = () => {
         if (__DEV__) console.log('Load More Items Completed')
+        if (this.props.onCompleteLoadMore) {
+            this.props.onCompleteLoadMore()
+        }
     }
 
     onCompleteRefreshing = () => {
         if (__DEV__) console.log('Refresh List Completed')
-        this.setState({ isRefreshing: false })
+        this.setState({ isRefreshing: false }, () => {
+            if (this.props.onCompleteRefresh) {
+                this.props.onCompleteRefresh()
+            }
+        })
     }
 
     onLoadError = (error) => {

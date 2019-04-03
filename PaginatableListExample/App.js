@@ -6,6 +6,11 @@ import  AppWithNavigationState from '@Components/Router';
 
 console.disableYellowBox = true
 
+// To see all the requests in the chrome Dev tools in the network tab.
+XMLHttpRequest = GLOBAL.originalXMLHttpRequest ?
+    GLOBAL.originalXMLHttpRequest :
+    GLOBAL.XMLHttpRequest;
+
 class App extends Component {
 
     constructor() {

@@ -16,14 +16,22 @@ class UserListContainer extends Component {
         this.props.dispatch(customizedPaginationStateManager.highlightItem({ index: index, extra: 'extra' }))
     }
 
-    onLoadMoreUsers = ({ ...args }) => {
-        this.props.dispatch(customizedPaginationStateManager.loadMore({ ...args, keyword: '123', isValid: true }))
+    onLoadMoreUsers = ({ ...args }, onCompleteLoadMore, onLoadError) => {
+        this.props.dispatch(customizedPaginationStateManager.loadMore({ ...args, keyword: '123', isValid: true }, onCompleteLoadMore, onLoadError))
         //The keyword and isValid param is an example of querying more params other than pageNumber and pageSize. 
     }
 
-    onRefreshUserList = ({onCompleteRefreshing, ...args}) => {
-        this.props.dispatch(customizedPaginationStateManager.refresh({ ...args, keyword: '123', isValid: true }, onCompleteRefreshing))
+    onRefreshUserList = ({ ...args }, onCompleteRefreshing, onLoadError) => {
+        this.props.dispatch(customizedPaginationStateManager.refresh({ ...args, keyword: '123', isValid: true }, onCompleteRefreshing, onLoadError))
         //The keyword and isValid param is an example of querying more params other than pageNumber and pageSize. 
+    }
+
+    onCompleteLoadMore = () => {
+        if (__DEV__) console.log('Customized completion handler of loading more items.')
+    }
+
+    onCompleteRefresh = () => {
+        if (__DEV__) console.log('Customized completion handler of refreshing the list.')
     }
 
     render() {
@@ -31,8 +39,10 @@ class UserListContainer extends Component {
             <UserListComponent
                 paginatableListReducer={customizedPaginationStateManager}
                 onHighlightItem={this.onHighlightUser}
-                // onLoadMore={this.onLoadMoreUsers}
-                // onRefresh={this.onRefreshUserList} 
+                //onLoadMore={this.onLoadMoreUsers}
+                //onCompleteLoadMore={this.onCompleteLoadMore}
+                onRefresh={this.onRefreshUserList} 
+                onCompleteRefresh={this.onCompleteRefresh}
             />
         )
     }

@@ -41,10 +41,17 @@ export default class UserListComponent extends Component {
 
     renderEmptyStatus = () => {
         return (
-            <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <View>
                     <Image style={style.emptyStatusLogo} resizeMode={'contain'} source={require('../../Assets/TTTLogo.png')} />
                     <Text>Customized Empty Status</Text>
+                    <TouchableOpacity style={{ alignItems: 'center', marginTop: 20 }} onPress={() => {
+                        if (this.paginatableList) {
+                            this.paginatableList.onRefresh(false)
+                        }
+                    }}>
+                        <Text>Tap here to Refresh</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         )
@@ -65,6 +72,7 @@ export default class UserListComponent extends Component {
         return (
             <View style={{ flex:1 }}>
                 <PaginatableList
+                    onRef={(ref) => this.paginatableList = ref}
                     onRenderItem={this.renderListItem}
                     onRenderEmptyStatus={this.renderEmptyStatus}
                     customizedPaginationStateManager={this.props.paginatableListReducer}
@@ -74,6 +82,10 @@ export default class UserListComponent extends Component {
                     pageSizeKey={'_limit'}
                     pageNumberKey={'_page'}
                     onLoadError={this.onPaginatableListLoadError}
+                    onCompleteLoadMore={this.props.onCompleteLoadMore}
+                    //onLoadMore={this.props.onLoadMore}
+                    //onRefresh={this.props.onRefresh}
+                    onCompleteRefresh={this.props.onCompleteRefresh}
                 />
             </View>
         )

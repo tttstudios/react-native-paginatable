@@ -363,6 +363,20 @@ render() {
 }
 ```
 
+#### Manually Refresh the List
+
+If you need to manually trigger a list refreshing without pulling down the top of the list. First use `onRef` props to create a reference of PaginatableList instance that you'd like to refresh manually. 
+```
+<PaginatableList onRef={(ref) => this.paginatableList = ref} />
+```
+Then calling `this.paginatableList.onRefresh(false)` will present a manual list refreshing without refresh control. 
+```
+<TouchableOpacity onPress={() => {
+    if (this.paginatableList) {
+        this.paginatableList.onRefresh(false)
+    }
+}}>
+```
 #### Embed Pagination Reducer into Another Reducer
 
 By default, parameter `customizedReducerPath` is not required, and the `name` paramter will be used as the key to store the list items in the Redux store. However, if you'd like to embed pagination reducer into another reducer. 

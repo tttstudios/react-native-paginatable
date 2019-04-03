@@ -37,7 +37,7 @@ class PaginatableList extends Component {
         pageNumberStartFrom : 1, 
         pageSize            : 5,
         style               : { width: '100%' },
-        contentContainerStyle           : {}, 
+        contentContainerStyle           : { flexGrow: 1 }, 
         showsVerticalScrollIndicator    : true
     }
 
@@ -161,10 +161,14 @@ class PaginatableList extends Component {
 
     onLoadError = (error) => {
         if (__DEV__) console.log('Error happened while loading.')
-        if (this.props.onLoadError) {
-            this.props.onLoadError(error)
-        }
-        this.setState({ isRefreshing: false })
+        this.setState({ isRefreshing: false }, () => {
+            // Add timeout here because in iOS, the refresh control wouldn't be dismissed properly if the onLoadError() pop an alert. 
+            setTimeout(() => {
+                if (this.props.onLoadError) {
+                    this.props.onLoadError(error)
+                }
+            }, 500)
+        })
     }
 
     keyExtractor = (item, index) => item.id;

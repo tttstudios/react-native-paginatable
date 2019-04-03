@@ -113,7 +113,7 @@ class PaginatableList extends Component {
                
             const { pageNumberKey, pageSizeKey, pageSize } =  this.props
             if (this.props.onLoadMore) {
-                this.props.onLoadMore({ onCompleteLoadingMore: this.onCompleteLoadingMore, pageNumberKey, pageSizeKey, pageNumber, pageSize})
+                this.props.onLoadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize}, this.onCompleteLoadingMore, this.onLoadError)
             } else {
                 this.props.dispatch(this.paginationStateManager.loadMore({ pageNumberKey, pageSizeKey, pageNumber, pageSize }, this.onCompleteLoadingMore, this.onLoadError))
             }
@@ -132,7 +132,7 @@ class PaginatableList extends Component {
             isRefreshing: refreshControl ? true : false
         }, () => {
             if (this.props.onRefresh) {
-                this.props.onRefresh({ onCompleteRefreshing: this.onCompleteRefreshing, pageNumberKey, pageSizeKey, pageNumber: this.state.pageNumber, pageSize })
+                this.props.onRefresh({ pageNumberKey, pageSizeKey, pageNumber: this.state.pageNumber, pageSize }, this.onCompleteRefreshing, this.onLoadError)
             } else {
                 this.props.dispatch(this.paginationStateManager.refresh({ pageNumberKey, pageSizeKey, pageNumber: this.state.pageNumber, pageSize }, this.onCompleteRefreshing, this.onLoadError))
             }
@@ -160,6 +160,7 @@ class PaginatableList extends Component {
     }
 
     onLoadError = (error) => {
+        if (__DEV__) console.log('Error happened while loading.')
         if (this.props.onLoadError) {
             this.props.onLoadError(error)
         }

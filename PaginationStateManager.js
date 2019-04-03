@@ -88,11 +88,13 @@ export default class PaginationStateManager {
     loadMore = ({ pageNumberKey, pageSizeKey, pageNumber, pageSize, ...args }, successCallback = () => {}, errorCallback = () => {}) => {
         return async (dispatch) => {
             var headers = {}
-            try {
-                headers = await this.getHeaders()
-                if (__DEV__) console.log(`HTTP Headers: ${JSON.stringify(headers, undefined, 2)}`)
-            } catch (err) {
-                if (__DEV__) console.log(`No HTTP Headers Available: ${err}`)
+            if (this.getHeaders) {
+                try {
+                    headers = await this.getHeaders()
+                    if (__DEV__) console.log(`HTTP Headers: ${JSON.stringify(headers, undefined, 2)}`)
+                } catch (err) {
+                    if (__DEV__) console.log(`No HTTP Headers Available: ${err}`)
+                }
             }
             PaginateService.getItems({ headers, pageNumberKey, pageSizeKey, pageNumber, pageSize, endpointUrl: this.endpointUrl, ...args })
             .then(response => {

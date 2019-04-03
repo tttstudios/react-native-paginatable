@@ -160,7 +160,8 @@ Defaultly, PaginatableList will only use `pageSize` and `pageNumber` as query pa
 ```
 
 ```
-onLoadMore = ({ ...args }) => {
+// If you are using version < 0.3
+onLoadMore = ({ onCompleteLoadMore, ...args }) => {
     this.props.dispatch(paginationStateManager.loadMore({
 		...args,
     	keyword: 'keyword'
@@ -174,6 +175,21 @@ onRefresh = ({onCompleteRefreshing, ...args}) => {
     }, (data) => {
         onCompleteRefreshing(data)
     }))
+}
+
+// If you are using version >= 0.3
+onLoadMore = ({ ...args }, onCompleteLoadMore, onLoadError) => {
+    this.props.dispatch(paginationStateManager.loadMore({
+		...args,
+    	keyword: 'keyword'
+    }, onCompleteLoadMore, onLoadError))
+}
+
+onRefresh = ({...args}, onCompleteRefreshing, onLoadError) => {
+    this.props.dispatch(paginationStateManager.refresh({
+        ...args,
+        keyword: 'keyword'
+    }, onCompleteRefreshing, onLoadError))
 }
 
 ```

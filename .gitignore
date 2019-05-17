@@ -65,3 +65,6 @@ package-lock.json
 
 # Before release a new versiont to npm. Uncomment the line below to minimize the package size.
 # PaginatableListExample/
+
+# jest coverage artifacts
+coverage

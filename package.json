@@ -1,42 +1,61 @@
 {
-  "name": "@twotalltotems/paginatable-list",
-  "version": "0.3.0",
-  "description": "A self-managed list with pagination.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Twotalltotems/react-native-paginatable.git"
-  },
-  "keywords": [
-    "pagination",
-    "pull-to-refresh",
-    "load-more",
-    "auto",
-    "list",
-    "infinite-scrolling",
-    "endless-scrolling"
-  ],
-  "author": "TTT Studio (https://ttt.studio)",
-  "contributors": [
-    "Becky Wu <wwq220@gmail.com> (http://www.beckywu.me)",
-    "Felipe Peña <felipe@penya.cl> (http://felipe.penya.cl)"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Twotalltotems/react-native-paginatable/issues"
-  },
-  "homepage": "https://github.com/Twotalltotems/react-native-paginatable#readme",
-  "peerDependencies": {
-    "axios": ">0.17.1",
-    "prop-types": ">15.6.0",
-    "react-redux": ">5.0.6",
-    "redux-thunk": ">2.2.0",
-    "reduxsauce": ">0.7.0"
-  },
-  "dependencies": {
-    "@twotalltotems/paginatable-list": "0.2.5"
-  }
+	"name": "@twotalltotems/paginatable-list",
+	"version": "0.3.0",
+	"description": "A self-managed list with pagination.",
+	"main": "index.js",
+	"scripts": {
+		"test": "jest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Twotalltotems/react-native-paginatable.git"
+	},
+	"keywords": [
+		"pagination",
+		"pull-to-refresh",
+		"load-more",
+		"auto",
+		"list",
+		"infinite-scrolling",
+		"endless-scrolling"
+	],
+	"author": "TTT Studio (https://ttt.studio)",
+	"contributors": [
+		"Becky Wu <wwq220@gmail.com> (http://www.beckywu.me)",
+		"Felipe Peña <felipe@penya.cl> (http://felipe.penya.cl)"
+	],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Twotalltotems/react-native-paginatable/issues"
+	},
+	"homepage": "https://github.com/Twotalltotems/react-native-paginatable#readme",
+	"peerDependencies": {
+		"axios": ">0.17.1",
+		"prop-types": ">15.6.0",
+		"react-redux": ">5.0.6",
+		"redux-thunk": ">2.2.0",
+		"reduxsauce": ">0.7.0"
+	},
+	"dependencies": {
+		"@twotalltotems/paginatable-list": "0.2.5"
+	},
+	"devDependencies": {
+		"axios": "^0.18.0",
+		"babel-jest": "^24.8.0",
+		"jest": "^24.8.0",
+		"metro-react-native-babel-preset": "^0.54.0",
+		"react": "^16.8.6",
+		"react-native": "^0.59.8",
+		"react-redux": "5.0.6",
+		"react-test-renderer": "^16.8.6",
+		"redux": "^4.0.1",
+		"redux-thunk": "2.2.0",
+		"reduxsauce": "0.7.0"
+	},
+	"jest": {
+		"preset": "react-native",
+		"testMatch": [
+			"<rootDir>/__tests__/**/*.[jt]s?(x)"
+		]
+	}
 }

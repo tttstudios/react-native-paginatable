@@ -42,9 +42,13 @@
 	"devDependencies": {
 		"axios": "^0.18.0",
 		"babel-jest": "^24.8.0",
+		"enzyme": "^3.9.0",
+		"enzyme-adapter-react-16": "^1.13.1",
 		"jest": "^24.8.0",
+		"jest-enzyme": "^7.0.2",
 		"metro-react-native-babel-preset": "^0.54.0",
 		"react": "^16.8.6",
+		"react-dom": "^16.8.6",
 		"react-native": "^0.59.8",
 		"react-redux": "5.0.6",
 		"react-test-renderer": "^16.8.6",
@@ -56,6 +60,10 @@
 		"preset": "react-native",
 		"testMatch": [
 			"<rootDir>/__tests__/**/*.[jt]s?(x)"
-		]
+		],
+		"modulePathIgnorePatterns": [
+			"/PaginatableListExample"
+		],
+		"setupTestFrameworkScriptFile": "<rootDir>/jest/setup.js"
 	}
 }

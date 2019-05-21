@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const ttt_lightGrey = '#c0c1c4'
 const ttt_darkGrey = '#9f9fa0'
 
-export default styles = StyleSheet.create({
+export default StyleSheet.create({
     defaultCell: {
         height: 120, 
         borderBottomColor: ttt_lightGrey, 

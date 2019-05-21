@@ -1,13 +1,13 @@
 import React from 'react'
 import { combineReducers, applyMiddleware, compose, createStore } from 'redux'
 import ReduxThunk from 'redux-thunk'
-import 'react-native'
 import { Text } from 'react-native'
 
 import PaginatableList from '../index'
 import PaginationStateManager from '../PaginationStateManager'
 
 import TestRenderer from 'react-test-renderer' // comes after react-native
+import { shallow, mount, render } from 'enzyme';
 
 const USER_ITEMS = [{ key: 'k1' }, { key: 'k2' }, { key: 'k3' }]
 const STATE_NAME = 'users'
@@ -29,16 +29,20 @@ describe('PaginatableList', () => {
 					{},
 					compose(applyMiddleware(ReduxThunk))
 				)
-				const tree = TestRenderer.create(
+
+				console.log(reduxStore.getState().users)
+
+				const component = shallow(
 					<PaginatableList
 						store={reduxStore}
 						customizedPaginationStateManager={
 							paginationStateManager
 						}
 					/>
-				).toJSON()
+				)
 
-				expect(tree).toMatchSnapshot()
+				expect(component.find('FlatList').props.data).toBe(undefined)
+				// expect(component).toMatchSnapshot()
 			})
 		})
 
@@ -49,16 +53,25 @@ describe('PaginatableList', () => {
 					{ [STATE_NAME]: { items: USER_ITEMS } },
 					compose(applyMiddleware(ReduxThunk))
 				)
-				const tree = TestRenderer.create(
+
+				console.log(reduxStore.getState().users.items)
+				const renderer = TestRenderer.create(
 					<PaginatableList
 						store={reduxStore}
 						customizedPaginationStateManager={
 							paginationStateManager
 						}
 					/>
-				).toJSON()
+				)
 
-				expect(tree).toMatchSnapshot()
+				expect(renderer.toJSON()).toMatchSnapshot()
+
+				const itemTexts = renderer.root.findAllByType(Text).filter(text => text.props.children !== 'Use \'onRenderItem\' props to overwrite the default cell.')
+				expect(itemTexts.length).toBe(3)
+				
+				itemTexts.map((text, index) => {
+					expect(text.props.children).toBe(`Item ${index}`)
+				})
 			})
 		})
 	})

@@ -1,0 +1,21 @@
+{
+    "data": {
+      "items": [
+        {
+            "email": "Sf@sdf.com",
+            "password": "asfasdf",
+            "id": 1
+          },
+          {
+            "email": "asfd@adsfa.com",
+            "password": "asfasfd",
+            "id": 2
+          },
+          {
+            "email": "Safd@sdf.com",
+            "password": "asfasf",
+            "id": 3
+          }
+      ]
+    }
+  }

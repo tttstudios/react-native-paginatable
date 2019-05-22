@@ -54,6 +54,9 @@
     "reduxsauce": "0.7.0"
   },
   "jest": {
+    "modulePathIgnorePatterns": [
+      "PaginatableListExample/"
+    ],
     "preset": "react-native",
     "testMatch": [
       "<rootDir>/__tests__/**/*.[jt]s?(x)"

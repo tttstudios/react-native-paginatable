@@ -55,7 +55,7 @@ class PaginatableList extends Component {
 
 	renderItem = ({ index, item }) => {
 		return (
-			<View style={style.defaultCell}>
+			<View style={style.defaultCell} testID="default-redner-item">
 				<Text style={style.defaultCellText}>{`Item ${index}`}</Text>
 				<Text style={style.defaultCellHint}>
 					Use 'onRenderItem' props to overwrite the default cell.

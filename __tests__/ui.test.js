@@ -79,7 +79,7 @@ describe('PaginatableList', () => {
 				expect(
 					testRenderer.root.findAll(
 						el =>
-							el.props.testID === 'default-redner-item' &&
+							el.props.testID === 'default-render-item' &&
 							el.type === 'View'
 					).length
 				).toBe(USER_ITEMS.length)

@@ -310,7 +310,7 @@ exports[`PaginatableList .defaultProps with three items renders list properly 1`
             "padding": 20,
           }
         }
-        testID="default-redner-item"
+        testID="default-render-item"
       >
         <Text
           style={
@@ -363,7 +363,7 @@ exports[`PaginatableList .defaultProps with three items renders list properly 1`
             "padding": 20,
           }
         }
-        testID="default-redner-item"
+        testID="default-render-item"
       >
         <Text
           style={
@@ -416,7 +416,7 @@ exports[`PaginatableList .defaultProps with three items renders list properly 1`
             "padding": 20,
           }
         }
-        testID="default-redner-item"
+        testID="default-render-item"
       >
         <Text
           style={

@@ -1,5 +1,3 @@
-import PaginatableList from './PaginatableList';
+import PaginatableList from './PaginatableList'
 
-export {
-    PaginatableList
-}
+export { PaginatableList }

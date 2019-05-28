@@ -1,39 +1,47 @@
-import { combineReducers } from 'redux';
-import { createActions, createReducer, Types as ReduxSauceTypes } from 'reduxsauce';
-import NavigationReducer from './NavigationReducer';
-import { reducer as CustomizedPaginatableListReducer } from './CustomizedPaginationListReducer';
+import { combineReducers } from 'redux'
+import {
+	createActions,
+	createReducer,
+	Types as ReduxSauceTypes
+} from 'reduxsauce'
+import NavigationReducer from './NavigationReducer'
+import { reducer as CustomizedPaginatableListReducer } from './CustomizedPaginationListReducer'
 
-const getCombinedReducers = (asyncReducers) => {
-    return combineReducers({
-        users      : CustomizedPaginatableListReducer,
-        nav        : NavigationReducer,
-        ...asyncReducers
-    });
+const getCombinedReducers = asyncReducers => {
+	return combineReducers({
+		users: CustomizedPaginatableListReducer,
+		nav: NavigationReducer,
+		...asyncReducers
+	})
 }
 
 const { Types, Creators: Actions } = createActions({
-    resetApp: []
+	resetApp: []
 })
 
-const getRootReducer = (asyncReducers) => {
-    const appReducer = getCombinedReducers(asyncReducers)
+const getRootReducer = asyncReducers => {
+	const appReducer = getCombinedReducers(asyncReducers)
 
-    return createReducer([], {
-        [Types.RESET_APP]: (state, action) => {
-            return appReducer(undefined, action)
-            //Passing undefined as state will make all the reducers using their initial states.
-        },
-        [ReduxSauceTypes.DEFAULT]: (state, action) => {
-            return appReducer(state, action)
-        }
-    })
+	return createReducer([], {
+		[Types.RESET_APP]: (state, action) => {
+			return appReducer(undefined, action)
+			//Passing undefined as state will make all the reducers using their initial states.
+		},
+		[ReduxSauceTypes.DEFAULT]: (state, action) => {
+			return appReducer(state, action)
+		}
+	})
 }
 
 const resetReduxStore = () => {
-    return (dispatch) => {
-        dispatch(Actions.resetApp())
-    }
+	return dispatch => {
+		dispatch(Actions.resetApp())
+	}
 }
 
-
-export {getRootReducer, resetReduxStore, getCombinedReducers, CustomizedPaginatableListReducer}
+export {
+	getRootReducer,
+	resetReduxStore,
+	getCombinedReducers,
+	CustomizedPaginatableListReducer
+}

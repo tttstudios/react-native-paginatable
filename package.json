@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "format": "prettier --write \"**/*.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -39,5 +39,27 @@
   },
   "dependencies": {
     "@twotalltotems/paginatable-list": "0.2.5"
+  },
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "babel-jest": "^24.8.0",
+    "jest": "^24.8.0",
+    "metro-react-native-babel-preset": "^0.54.0",
+    "react": "^16.8.6",
+    "react-native": "^0.59.8",
+    "react-redux": "5.0.6",
+    "react-test-renderer": "^16.8.6",
+    "redux": "^4.0.1",
+    "redux-thunk": "2.2.0",
+    "reduxsauce": "0.7.0"
+  },
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "PaginatableListExample/"
+    ],
+    "preset": "react-native",
+    "testMatch": [
+      "<rootDir>/__tests__/**/*.[jt]s?(x)"
+    ]
   }
 }

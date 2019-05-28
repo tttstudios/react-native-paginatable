@@ -1,0 +1,461 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaginatableList #onRenderEmptyStatus renders empty state using onRenderEmptyStatus 1`] = `
+<RCTScrollView
+  ListEmptyComponent={[Function]}
+  contentContainerStyle={
+    Object {
+      "flexGrow": 1,
+    }
+  }
+  data={Array []}
+  disableVirtualization={false}
+  getItem={[Function]}
+  getItemCount={[Function]}
+  horizontal={false}
+  initialNumToRender={10}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={10}
+  numColumns={1}
+  onContentSizeChange={[Function]}
+  onEndReached={[Function]}
+  onEndReachedThreshold={0.5}
+  onLayout={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  refreshControl={
+    <RefreshControlMock
+      onRefresh={[Function]}
+      refreshing={false}
+    />
+  }
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={50}
+  showsVerticalScrollIndicator={true}
+  stickyHeaderIndices={Array []}
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+  updateCellsBatchingPeriod={50}
+  viewabilityConfigCallbackPairs={Array []}
+  windowSize={21}
+>
+  <RCTRefreshControl />
+  <View>
+    <Text
+      testID="custom-empty"
+    >
+      Custom empty component
+    </Text>
+  </View>
+</RCTScrollView>
+`;
+
+exports[`PaginatableList #onRenderItem renders each item using onRenderItem 1`] = `
+<RCTScrollView
+  ListEmptyComponent={[Function]}
+  contentContainerStyle={
+    Object {
+      "flexGrow": 1,
+    }
+  }
+  data={
+    Array [
+      Object {
+        "key": "k1",
+      },
+      Object {
+        "key": "k2",
+      },
+      Object {
+        "key": "k3",
+      },
+    ]
+  }
+  disableVirtualization={false}
+  getItem={[Function]}
+  getItemCount={[Function]}
+  horizontal={false}
+  initialNumToRender={10}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={10}
+  numColumns={1}
+  onContentSizeChange={[Function]}
+  onEndReached={[Function]}
+  onEndReachedThreshold={0.5}
+  onLayout={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  refreshControl={
+    <RefreshControlMock
+      onRefresh={[Function]}
+      refreshing={false}
+    />
+  }
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={50}
+  showsVerticalScrollIndicator={true}
+  stickyHeaderIndices={Array []}
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+  updateCellsBatchingPeriod={50}
+  viewabilityConfigCallbackPairs={Array []}
+  windowSize={21}
+>
+  <RCTRefreshControl />
+  <View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <Text
+        testID="custom-on-render-item"
+      >
+        Custom onRenderItem: 
+        k1
+      </Text>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <Text
+        testID="custom-on-render-item"
+      >
+        Custom onRenderItem: 
+        k2
+      </Text>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <Text
+        testID="custom-on-render-item"
+      >
+        Custom onRenderItem: 
+        k3
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;
+
+exports[`PaginatableList .defaultProps with no items renders empty state properly 1`] = `
+<RCTScrollView
+  ListEmptyComponent={[Function]}
+  contentContainerStyle={
+    Object {
+      "flexGrow": 1,
+    }
+  }
+  data={Array []}
+  disableVirtualization={false}
+  getItem={[Function]}
+  getItemCount={[Function]}
+  horizontal={false}
+  initialNumToRender={10}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={10}
+  numColumns={1}
+  onContentSizeChange={[Function]}
+  onEndReached={[Function]}
+  onEndReachedThreshold={0.5}
+  onLayout={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  refreshControl={
+    <RefreshControlMock
+      onRefresh={[Function]}
+      refreshing={false}
+    />
+  }
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={50}
+  showsVerticalScrollIndicator={true}
+  stickyHeaderIndices={Array []}
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+  updateCellsBatchingPeriod={50}
+  viewabilityConfigCallbackPairs={Array []}
+  windowSize={21}
+>
+  <RCTRefreshControl />
+  <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Image
+        resizeMode="contain"
+        source={
+          Object {
+            "testUri": "../../../assets/TTTLogo_white.png",
+          }
+        }
+        style={
+          Object {
+            "margin": 10,
+            "maxHeight": 100,
+            "tintColor": "#c0c1c4",
+            "width": "50%",
+          }
+        }
+      />
+      <Text
+        style={
+          Object {
+            "color": "#9f9fa0",
+          }
+        }
+      >
+        There is no items in the list.
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;
+
+exports[`PaginatableList .defaultProps with three items renders list properly 1`] = `
+<RCTScrollView
+  ListEmptyComponent={[Function]}
+  contentContainerStyle={
+    Object {
+      "flexGrow": 1,
+    }
+  }
+  data={
+    Array [
+      Object {
+        "key": "k1",
+      },
+      Object {
+        "key": "k2",
+      },
+      Object {
+        "key": "k3",
+      },
+    ]
+  }
+  disableVirtualization={false}
+  getItem={[Function]}
+  getItemCount={[Function]}
+  horizontal={false}
+  initialNumToRender={10}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={10}
+  numColumns={1}
+  onContentSizeChange={[Function]}
+  onEndReached={[Function]}
+  onEndReachedThreshold={0.5}
+  onLayout={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  refreshControl={
+    <RefreshControlMock
+      onRefresh={[Function]}
+      refreshing={false}
+    />
+  }
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={50}
+  showsVerticalScrollIndicator={true}
+  stickyHeaderIndices={Array []}
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+  updateCellsBatchingPeriod={50}
+  viewabilityConfigCallbackPairs={Array []}
+  windowSize={21}
+>
+  <RCTRefreshControl />
+  <View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Object {
+            "borderBottomColor": "#c0c1c4",
+            "borderBottomWidth": 1,
+            "height": 120,
+            "padding": 20,
+          }
+        }
+        testID="default-render-item"
+      >
+        <Text
+          style={
+            Object {
+              "color": "#9f9fa0",
+            }
+          }
+        >
+          Item 0
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#9f9fa0",
+              "fontSize": 12,
+            }
+          }
+        >
+          Use 'onRenderItem' props to overwrite the default cell.
+        </Text>
+        <Image
+          resizeMode="contain"
+          source={
+            Object {
+              "testUri": "../../../assets/TTTLogo_white.png",
+            }
+          }
+          style={
+            Object {
+              "alignSelf": "flex-end",
+              "height": 40,
+              "marginTop": 10,
+              "tintColor": "#c0c1c4",
+              "width": 80,
+            }
+          }
+        />
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Object {
+            "borderBottomColor": "#c0c1c4",
+            "borderBottomWidth": 1,
+            "height": 120,
+            "padding": 20,
+          }
+        }
+        testID="default-render-item"
+      >
+        <Text
+          style={
+            Object {
+              "color": "#9f9fa0",
+            }
+          }
+        >
+          Item 1
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#9f9fa0",
+              "fontSize": 12,
+            }
+          }
+        >
+          Use 'onRenderItem' props to overwrite the default cell.
+        </Text>
+        <Image
+          resizeMode="contain"
+          source={
+            Object {
+              "testUri": "../../../assets/TTTLogo_white.png",
+            }
+          }
+          style={
+            Object {
+              "alignSelf": "flex-end",
+              "height": 40,
+              "marginTop": 10,
+              "tintColor": "#c0c1c4",
+              "width": 80,
+            }
+          }
+        />
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Object {
+            "borderBottomColor": "#c0c1c4",
+            "borderBottomWidth": 1,
+            "height": 120,
+            "padding": 20,
+          }
+        }
+        testID="default-render-item"
+      >
+        <Text
+          style={
+            Object {
+              "color": "#9f9fa0",
+            }
+          }
+        >
+          Item 2
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#9f9fa0",
+              "fontSize": 12,
+            }
+          }
+        >
+          Use 'onRenderItem' props to overwrite the default cell.
+        </Text>
+        <Image
+          resizeMode="contain"
+          source={
+            Object {
+              "testUri": "../../../assets/TTTLogo_white.png",
+            }
+          }
+          style={
+            Object {
+              "alignSelf": "flex-end",
+              "height": 40,
+              "marginTop": 10,
+              "tintColor": "#c0c1c4",
+              "width": 80,
+            }
+          }
+        />
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

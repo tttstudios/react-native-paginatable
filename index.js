@@ -3,6 +3,7 @@ import { FlatList, RefreshControl, View, Text, Image } from 'react-native'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import PaginationStateManager from './PaginationStateManager'
+import PaginationService from './PaginateService'
 import style from './style'
 
 class PaginatableList extends Component {
@@ -30,7 +31,9 @@ class PaginatableList extends Component {
 		showsVerticalScrollIndicator: PropTypes.bool,
 		contentContainerStyle: PropTypes.object,
 		onCompleteRefresh: PropTypes.func,
-		onCompleteLoadMore: PropTypes.func
+		onCompleteLoadMore: PropTypes.func,
+
+		storeListItemWithState: PropTypes.bool, //If storeListItemWithState is true, then use the component state to store the item list. Otherwise, use redux store to store the list items.
 	}
 
 	static defaultProps = {
@@ -40,7 +43,8 @@ class PaginatableList extends Component {
 		pageSize: 5,
 		style: { width: '100%' },
 		contentContainerStyle: { flexGrow: 1 },
-		showsVerticalScrollIndicator: true
+		showsVerticalScrollIndicator: true,
+		storeListItemWithState: false,
 	}
 
 	constructor(props) {
@@ -49,7 +53,8 @@ class PaginatableList extends Component {
 		this.state = {
 			pageNumber: this.props.pageNumberStartFrom,
 			isRefreshing: false,
-			loading: false
+			loading: false,
+			items: []
 		}
 	}
 
@@ -77,8 +82,9 @@ class PaginatableList extends Component {
 	}
 
 	componentWillMount() {
-		this.configureReducer()
-		// this.onLoad()
+		if (!this.props.storeListItemWithState) {
+			this.configureReducer()
+		}
 	}
 
 	componentWillUnmount() {
@@ -101,6 +107,36 @@ class PaginatableList extends Component {
 
 	onLoad = () => {
 		this.onLoadMore()
+	}
+
+	loadMoreIntoReduxStore = (isRefreshing = false) => {
+		const { pageNumberKey, pageSizeKey, pageSize } = this.props
+		if (isRefreshing) {
+			this.props.dispatch(
+				this.paginationStateManager.refresh(
+					{
+						pageNumberKey,
+						pageSizeKey,
+						pageNumber: this.state.pageNumber,
+						pageSize
+					},
+					this.onCompleteRefreshing,
+					this.onLoadError
+				)
+			)
+		}
+		this.props.dispatch(
+			this.paginationStateManager.loadMore(
+				{
+					pageNumberKey,
+					pageSizeKey,
+					pageNumber: this.state.pageNumber,
+					pageSize
+				},
+				this.onCompleteLoadingMore,
+				this.onLoadError
+			)
+		)
 	}
 
 	onLoadMore = () => {
@@ -131,18 +167,19 @@ class PaginatableList extends Component {
 						this.onLoadError
 					)
 				} else {
-					this.props.dispatch(
-						this.paginationStateManager.loadMore(
-							{
-								pageNumberKey,
-								pageSizeKey,
-								pageNumber,
-								pageSize
-							},
-							this.onCompleteLoadingMore,
-							this.onLoadError
-						)
-					)
+					if (!this.props.storeListItemWithState) {
+						this.loadMoreIntoReduxStore()
+					}
+					// PaginationService.getItems({
+					// 	headers: null,
+					// 	pageNumberKey,
+					// 	pageSizeKey,
+					// 	pageNumber,
+					// 	pageSize,
+					// 	endpointUrl: ''
+					// }).then((response) => {
+
+					// })
 				}
 
 				this.setState({
@@ -173,18 +210,10 @@ class PaginatableList extends Component {
 						this.onLoadError
 					)
 				} else {
-					this.props.dispatch(
-						this.paginationStateManager.refresh(
-							{
-								pageNumberKey,
-								pageSizeKey,
-								pageNumber: this.state.pageNumber,
-								pageSize
-							},
-							this.onCompleteRefreshing,
-							this.onLoadError
-						)
-					)
+					if (!this.props.storeListItemWithState) {
+						this.loadMoreIntoReduxStore(true)
+					}
+					
 				}
 
 				this.setState({

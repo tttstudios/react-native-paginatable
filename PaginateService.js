@@ -1,6 +1,11 @@
 import axios from 'axios'
 
 export default class PaginateService {
+	constructor() {
+		this.endpointUrl = null
+		this.header = null
+		this.responseParser = () => {}	
+	}
 	static async getItems({
 		headers,
 		pageNumberKey,
@@ -45,5 +50,25 @@ export default class PaginateService {
 		}
 
 		return axios(requestConfig)
+	}
+
+	setEndpointUrl(url) {
+		this.endpointUrl = url
+	}
+
+	setHeader(header) {
+		this.header = header
+	}
+
+	getHeader() {
+		return this.header
+	}
+
+	setResponseParser(onParsePaginationResponse = () => {}) {
+		this.responseParser = onParsePaginationResponse
+		// return {
+		// 	items: [],
+		// 	totalPagesNumber: 1
+		// }
 	}
 }

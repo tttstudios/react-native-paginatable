@@ -10,10 +10,13 @@ export default class PaginationStateManager {
 		requestHeaders = null
 	) {
 		this.name = name
-		this.endpointUrl = url
-		this.onParsePaginationResponse = onParsePaginationResponse
 		this.customizedReducerPath = customizedReducerPath
-		this.getHeaders = requestHeaders
+		
+		this.paginateService = new PaginateService()
+		this.paginateService.setEndpointUrl(url)
+		this.paginateService.setHeader(requestHeaders)
+		this.paginateService.setResponseParser(onParsePaginationResponse)
+		console.log(this.paginateService)
 
 		this.initialState = {
 			items: []
@@ -66,7 +69,10 @@ export default class PaginationStateManager {
 	}
 
 	setEndpointUrl = url => {
-		this.endpointUrl = url
+		if (this.paginateService) {
+			this.paginateService.setEndpointUrl(url)
+		}
+		
 	}
 
 	addAction({ type, payload, handler }) {
@@ -105,9 +111,9 @@ export default class PaginationStateManager {
 	) => {
 		return async dispatch => {
 			var headers = {}
-			if (this.getHeaders) {
+			if (this.paginateService.getHeader()) {
 				try {
-					headers = await this.getHeaders()
+					headers = await this.paginateService.getHeader()
 					if (__DEV__)
 						console.log(
 							`HTTP Headers: ${JSON.stringify(
@@ -127,15 +133,15 @@ export default class PaginationStateManager {
 				pageSizeKey,
 				pageNumber,
 				pageSize,
-				endpointUrl: this.endpointUrl,
+				endpointUrl: this.paginateService.endpointUrl,
 				...args
 			})
 				.then(response => {
-					if (this.onParsePaginationResponse) {
+					if (this.paginateService.responseParser) {
 						const {
 							items,
 							totalPagesNumber
-						} = this.onParsePaginationResponse(response.data)
+						} = this.paginateService.responseParser(response.data)
 						dispatch(this.actions.loadMore(items || []))
 						if (totalPagesNumber) {
 							dispatch(
@@ -163,7 +169,7 @@ export default class PaginationStateManager {
 		return async dispatch => {
 			var headers = {}
 			try {
-				headers = await this.getHeaders()
+				headers = await this.paginateService.getHeader()
 				if (__DEV__)
 					console.log(
 						`HTTP Headers: ${JSON.stringify(headers, undefined, 2)}`
@@ -177,15 +183,15 @@ export default class PaginationStateManager {
 				pageSizeKey,
 				pageNumber,
 				pageSize,
-				endpointUrl: this.endpointUrl,
+				endpointUrl: this.paginateService.endpointUrl,
 				...args
 			})
 				.then(response => {
-					if (this.onParsePaginationResponse) {
+					if (this.paginateService.responseParser) {
 						const {
 							items,
 							totalPagesNumber
-						} = this.onParsePaginationResponse(response.data)
+						} = this.paginateService.responseParser(response.data)
 						dispatch(this.actions.refresh(items || []))
 						if (totalPagesNumber) {
 							dispatch(

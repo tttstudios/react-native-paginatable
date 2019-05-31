@@ -116,7 +116,7 @@ class PaginatableList extends Component {
 	loadMoreWithState = (isRefreshing) => {
 		const { pageNumberKey, pageSizeKey, pageSize } = this.props
 		if (this.props.paginateService) {
-			this.props.paginateService.loadMore({
+			this.props.paginateService.load({
 				headers: this.props.paginateService.getHeader(),
 				pageNumberKey,
 				pageSizeKey,

@@ -51,7 +51,7 @@ export default class PaginateService {
 		return axios(requestConfig)
 	}
 
-	loadMore({
+	load({
 		pageNumberKey,
 		pageSizeKey,
 		pageNumber = 0,

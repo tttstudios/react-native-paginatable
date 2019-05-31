@@ -110,7 +110,7 @@ export default class PaginationStateManager {
 		errorCallback = () => {}
 	) => {
 		return async dispatch => {
-			this.paginateService.loadMore({
+			this.paginateService.load({
 				pageNumberKey,
 				pageSizeKey,
 				pageNumber,
@@ -140,7 +140,7 @@ export default class PaginationStateManager {
 		errorCallback = () => {}
 	) => {
 		return async dispatch => {
-			this.paginateService.loadMore({
+			this.paginateService.load({
 				pageNumberKey,
 				pageSizeKey,
 				pageNumber,

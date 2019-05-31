@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default class PaginateService {
-	constructor(url, header = null, responseParser = () => {}) {
+	constructor(url, header = null, responseParser = null) {
 		this.endpointUrl = url
 		this.header = header
 		this.responseParser = responseParser
@@ -48,8 +48,48 @@ export default class PaginateService {
 				)
 			requestConfig['headers'] = headers
 		}
-
 		return axios(requestConfig)
+	}
+
+	loadMore({
+		headers,
+		pageNumberKey,
+		pageSizeKey,
+		pageNumber = 0,
+		pageSize = 5,
+		endpointUrl,
+		...args
+	}, onSuccess = () => {}, onError = () => {}) {
+		PaginateService.getItems({
+			headers: this.getHeader(),
+			pageNumberKey,
+			pageSizeKey,
+			pageNumber,
+			pageSize,
+			endpointUrl: this.endpointUrl,
+			...args
+		}).then((response) => {
+			console.log(`pageNumber: ${pageNumber}`)
+			console.log(response.data)
+			if (this.responseParser) {
+				const {
+					items,
+					totalPagesNumber
+				} = this.responseParser(response.data)
+				onSuccess({
+					items,
+					totalPagesNumber
+				})
+			} else {
+				onSuccess({
+					items: response.data
+				})
+			}
+			
+		}).catch(error => {
+			if (__DEV__) console.log(JSON.stringify(error))
+			onError(error)
+		})
 	}
 
 	setEndpointUrl(url) {
@@ -66,9 +106,5 @@ export default class PaginateService {
 
 	setResponseParser(onParsePaginationResponse = () => {}) {
 		this.responseParser = onParsePaginationResponse
-		// return {
-		// 	items: [],
-		// 	totalPagesNumber: 1
-		// }
 	}
 }

@@ -127,7 +127,7 @@ export default class PaginationStateManager {
 						console.log(`No HTTP Headers Available: ${err}`)
 				}
 			}
-			PaginateService.getItems({
+			this.paginateService.loadMore({
 				headers,
 				pageNumberKey,
 				pageSizeKey,
@@ -135,29 +135,20 @@ export default class PaginationStateManager {
 				pageSize,
 				endpointUrl: this.paginateService.endpointUrl,
 				...args
+			}, ({ items = [], totalPagesNumber = null }) => {
+				if (items.length > 0) {
+					dispatch(this.actions.loadMore(items))
+				}
+				if (totalPagesNumber) {
+					dispatch(
+						this.actions.setTotalPage(totalPagesNumber)
+					)
+				}
+				successCallback()
+			}, (error) => {
+				if (__DEV__) console.log(JSON.stringify(error))
+				errorCallback(error)
 			})
-				.then(response => {
-					if (this.paginateService.responseParser) {
-						const {
-							items,
-							totalPagesNumber
-						} = this.paginateService.responseParser(response.data)
-						dispatch(this.actions.loadMore(items || []))
-						if (totalPagesNumber) {
-							dispatch(
-								this.actions.setTotalPage(totalPagesNumber)
-							)
-						}
-						successCallback()
-					} else {
-						dispatch(this.actions.loadMore(response.data))
-						successCallback()
-					}
-				})
-				.catch(error => {
-					if (__DEV__) console.log(JSON.stringify(error))
-					errorCallback(error)
-				})
 		}
 	}
 
@@ -177,7 +168,7 @@ export default class PaginationStateManager {
 			} catch (err) {
 				if (__DEV__) console.log(`No HTTP Header Available: ${err}`)
 			}
-			PaginateService.getItems({
+			this.paginateService.getItems({
 				headers,
 				pageNumberKey,
 				pageSizeKey,

@@ -102,7 +102,7 @@ export default class UserListComponent extends Component {
 
 	onPaginatableListLoadError = error => {
 		const { status } = error.request
-		if (status == 0) {
+		if (status && status == 0) {
 			alert(
 				'It seems like your local server is not running properly. \nPlease Check README.md for more details.'
 			)

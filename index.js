@@ -175,39 +175,25 @@ class PaginatableList extends Component {
 						this.loadMoreIntoReduxStore()
 					}
 					if (this.props.paginateService) {
-						this.props.paginateService.getItems({
+						this.props.paginateService.loadMore({
 							headers: this.props.paginateService.getHeader(),
 							pageNumberKey,
 							pageSizeKey,
 							pageNumber,
 							pageSize,
 							endpointUrl: this.props.paginateService.endpointUrl
-						}).then((response) => {
-							if (this.props.paginateService.responseParser) {
-								const {
-									items,
-									totalPagesNumber
-								} = this.paginateService.responseParser(response.data)
+						}, ({ items, totalPagesNumber = null }) => {
+							if (items.length > 0) {
 								this.setState({
-									items,
+									items: this.state.items.concat(items),
 									totalPagesNumber
 								}, () => {
-									this.onCompleteLoadingMore()
-								})
-							} else {
-								this.setState({
-									items: this.state.items.concat(response.data)
-								}, () => {
+									console.log(this.state.items)
 									this.onCompleteLoadingMore()
 								})
 							}
-							
-						}).catch(error => {
-							if (__DEV__) console.log(JSON.stringify(error))
-							this.onLoadError(error)
-						})
+						}, this.onLoadError)
 					}
-					
 				}
 
 				this.setState({

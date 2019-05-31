@@ -113,30 +113,54 @@ class PaginatableList extends Component {
 		this.onLoadMore()
 	}
 
+	loadMoreWithState = (isRefreshing) => {
+		const { pageNumberKey, pageSizeKey, pageSize } = this.props
+		if (this.props.paginateService) {
+			this.props.paginateService.loadMore({
+				headers: this.props.paginateService.getHeader(),
+				pageNumberKey,
+				pageSizeKey,
+				pageNumber: this.state.pageNumber,
+				pageSize,
+				endpointUrl: this.props.paginateService.endpointUrl
+			}, ({ items, totalPagesNumber = null }) => {
+				if (items.length > 0) {
+					this.setState({
+						items: isRefreshing ? items : this.state.items.concat(items),
+						totalPagesNumber
+					}, () => {
+						if (isRefreshing) {
+							this.onCompleteRefreshing()
+						} else {
+							this.onCompleteLoadingMore()
+						}
+					})
+				}
+			}, this.onLoadError)
+		}
+	}
+
 	loadMoreIntoReduxStore = (isRefreshing = false) => {
 		const { pageNumberKey, pageSizeKey, pageSize } = this.props
+		const params = {
+			pageNumberKey,
+			pageSizeKey,
+			pageNumber: this.state.pageNumber,
+			pageSize
+		}
 		if (isRefreshing) {
 			this.props.dispatch(
 				this.paginationStateManager.refresh(
-					{
-						pageNumberKey,
-						pageSizeKey,
-						pageNumber: this.state.pageNumber,
-						pageSize
-					},
+					params,
 					this.onCompleteRefreshing,
 					this.onLoadError
 				)
 			)
+			return
 		}
 		this.props.dispatch(
 			this.paginationStateManager.loadMore(
-				{
-					pageNumberKey,
-					pageSizeKey,
-					pageNumber: this.state.pageNumber,
-					pageSize
-				},
+				params,
 				this.onCompleteLoadingMore,
 				this.onLoadError
 			)
@@ -174,26 +198,7 @@ class PaginatableList extends Component {
 					if (!this.props.storeListItemWithState) {
 						this.loadMoreIntoReduxStore()
 					}
-					if (this.props.paginateService) {
-						this.props.paginateService.loadMore({
-							headers: this.props.paginateService.getHeader(),
-							pageNumberKey,
-							pageSizeKey,
-							pageNumber,
-							pageSize,
-							endpointUrl: this.props.paginateService.endpointUrl
-						}, ({ items, totalPagesNumber = null }) => {
-							if (items.length > 0) {
-								this.setState({
-									items: this.state.items.concat(items),
-									totalPagesNumber
-								}, () => {
-									console.log(this.state.items)
-									this.onCompleteLoadingMore()
-								})
-							}
-						}, this.onLoadError)
-					}
+					this.loadMoreWithState()
 				}
 
 				this.setState({
@@ -227,7 +232,7 @@ class PaginatableList extends Component {
 					if (!this.props.storeListItemWithState) {
 						this.loadMoreIntoReduxStore(true)
 					}
-					
+					this.loadMoreWithState(true)
 				}
 
 				this.setState({

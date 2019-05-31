@@ -52,7 +52,6 @@ export default class PaginateService {
 	}
 
 	loadMore({
-		headers,
 		pageNumberKey,
 		pageSizeKey,
 		pageNumber = 0,
@@ -101,6 +100,19 @@ export default class PaginateService {
 	}
 
 	getHeader() {
+		if (__DEV__) {
+			if (this.header) {
+				console.log(
+					`HTTP Headers: ${JSON.stringify(
+						this.header,
+						undefined,
+						2
+					)}`
+				)
+			} else {
+				console.log(`No HTTP Headers Available`)
+			}
+		}
 		return this.header
 	}
 

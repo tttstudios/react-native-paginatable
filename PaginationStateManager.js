@@ -110,25 +110,7 @@ export default class PaginationStateManager {
 		errorCallback = () => {}
 	) => {
 		return async dispatch => {
-			var headers = {}
-			if (this.paginateService.getHeader()) {
-				try {
-					headers = await this.paginateService.getHeader()
-					if (__DEV__)
-						console.log(
-							`HTTP Headers: ${JSON.stringify(
-								headers,
-								undefined,
-								2
-							)}`
-						)
-				} catch (err) {
-					if (__DEV__)
-						console.log(`No HTTP Headers Available: ${err}`)
-				}
-			}
 			this.paginateService.loadMore({
-				headers,
 				pageNumberKey,
 				pageSizeKey,
 				pageNumber,
@@ -158,47 +140,27 @@ export default class PaginationStateManager {
 		errorCallback = () => {}
 	) => {
 		return async dispatch => {
-			var headers = {}
-			try {
-				headers = await this.paginateService.getHeader()
-				if (__DEV__)
-					console.log(
-						`HTTP Headers: ${JSON.stringify(headers, undefined, 2)}`
-					)
-			} catch (err) {
-				if (__DEV__) console.log(`No HTTP Header Available: ${err}`)
-			}
-			this.paginateService.getItems({
-				headers,
+			this.paginateService.loadMore({
 				pageNumberKey,
 				pageSizeKey,
 				pageNumber,
 				pageSize,
 				endpointUrl: this.paginateService.endpointUrl,
 				...args
+			}, ({ items = [], totalPagesNumber = null }) => {
+				if (items.length > 0) {
+					dispatch(this.actions.refresh(items))
+				}
+				if (totalPagesNumber) {
+					dispatch(
+						this.actions.setTotalPage(totalPagesNumber)
+					)
+				}
+				successCallback()
+			}, (error) => {
+				if (__DEV__) console.log(JSON.stringify(error))
+				errorCallback(error)
 			})
-				.then(response => {
-					if (this.paginateService.responseParser) {
-						const {
-							items,
-							totalPagesNumber
-						} = this.paginateService.responseParser(response.data)
-						dispatch(this.actions.refresh(items || []))
-						if (totalPagesNumber) {
-							dispatch(
-								this.actions.setTotalPage(totalPagesNumber)
-							)
-						}
-						successCallback()
-					} else {
-						dispatch(this.actions.refresh(response.data))
-						successCallback()
-					}
-				})
-				.catch(error => {
-					if (__DEV__) console.log(JSON.stringify(error))
-					errorCallback(error)
-				})
 		}
 	}
 

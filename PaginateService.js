@@ -1,10 +1,10 @@
 import axios from 'axios'
 
 export default class PaginateService {
-	constructor() {
-		this.endpointUrl = null
-		this.header = null
-		this.responseParser = () => {}	
+	constructor(url, header = null, responseParser = () => {}) {
+		this.endpointUrl = url
+		this.header = header
+		this.responseParser = responseParser
 	}
 	static async getItems({
 		headers,

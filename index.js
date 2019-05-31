@@ -3,7 +3,7 @@ import { FlatList, RefreshControl, View, Text, Image } from 'react-native'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import PaginationStateManager from './PaginationStateManager'
-import PaginationService from './PaginateService'
+import PaginateService from './PaginateService'
 import style from './style'
 
 class PaginatableList extends Component {
@@ -23,6 +23,9 @@ class PaginatableList extends Component {
 		paginatableSourceUrl: PropTypes.string, // This is the endpoint url that could take pageSize and pageNumber as query params.
 		customizedPaginationStateManager: PropTypes.instanceOf(
 			PaginationStateManager
+		),
+		paginateService: PropTypes.instanceOf(
+			PaginateService
 		),
 		onLoadMore: PropTypes.func, //If you need to handle loadMore on your own. For examplem, you might need to query with more parmas than pageNumber and pageSize.
 		onRefresh: PropTypes.func, //If you need to handle refresh on your own.
@@ -54,7 +57,8 @@ class PaginatableList extends Component {
 			pageNumber: this.props.pageNumberStartFrom,
 			isRefreshing: false,
 			loading: false,
-			items: []
+			items: [],
+			totalPagesNumber: null
 		}
 	}
 
@@ -170,16 +174,40 @@ class PaginatableList extends Component {
 					if (!this.props.storeListItemWithState) {
 						this.loadMoreIntoReduxStore()
 					}
-					// PaginationService.getItems({
-					// 	headers: null,
-					// 	pageNumberKey,
-					// 	pageSizeKey,
-					// 	pageNumber,
-					// 	pageSize,
-					// 	endpointUrl: ''
-					// }).then((response) => {
-
-					// })
+					if (this.props.paginateService) {
+						this.props.paginateService.getItems({
+							headers: this.props.paginateService.getHeader(),
+							pageNumberKey,
+							pageSizeKey,
+							pageNumber,
+							pageSize,
+							endpointUrl: this.props.paginateService.endpointUrl
+						}).then((response) => {
+							if (this.props.paginateService.responseParser) {
+								const {
+									items,
+									totalPagesNumber
+								} = this.paginateService.responseParser(response.data)
+								this.setState({
+									items,
+									totalPagesNumber
+								}, () => {
+									this.onCompleteLoadingMore()
+								})
+							} else {
+								this.setState({
+									items: this.state.items.concat(response.data)
+								}, () => {
+									this.onCompleteLoadingMore()
+								})
+							}
+							
+						}).catch(error => {
+							if (__DEV__) console.log(JSON.stringify(error))
+							this.onLoadError(error)
+						})
+					}
+					
 				}
 
 				this.setState({
@@ -256,7 +284,7 @@ class PaginatableList extends Component {
 	renderList = () => {
 		return (
 			<FlatList
-				data={this.props.items || []}
+				data={this.props.storeListItemWithState ? this.state.items : this.props.items || []}
 				key={this.props.key || undefined}
 				keyExtractor={this.props.keyExtractor || undefined}
 				extraData={this.props.extraData || undefined}
@@ -307,6 +335,9 @@ class PaginatableList extends Component {
 }
 
 const mapStateToProps = (state, props) => {
+	if (props.storeListItemWithState) {
+		return {}
+	}
 	let reducerName = props.customizedPaginationStateManager.name
 	var items = []
 	var totalPagesNumber = null
@@ -349,7 +380,7 @@ const mapDispatchToProps = dispatch => ({
 	dispatch
 })
 
-export { PaginationStateManager }
+export { PaginationStateManager, PaginateService }
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps

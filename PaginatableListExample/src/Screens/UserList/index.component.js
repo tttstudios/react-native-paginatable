@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
-import PaginatableList from '@twotalltotems/paginatable-list'
+import PaginatableList, { PaginateService } from '@twotalltotems/paginatable-list'
 import style from './style'
+import Config from 'react-native-config'
 
 const ttt_blue = '#5B93C3'
 const ttt_white = '#FFFFFF'
@@ -10,6 +11,8 @@ const ttt_grey = '#4D4D4F'
 export default class UserListComponent extends Component {
 	constructor(props) {
 		super(props)
+
+		this.paginateService = new PaginateService(`${Config.BASE_API_URL}/users`)
 	}
 
 	state = {
@@ -113,9 +116,11 @@ export default class UserListComponent extends Component {
 					onRef={ref => (this.paginatableList = ref)}
 					onRenderItem={this.renderListItem}
 					onRenderEmptyStatus={this.renderEmptyStatus}
-					customizedPaginationStateManager={
-						this.props.paginatableListReducer
-					}
+					// customizedPaginationStateManager={
+					// 	this.props.paginatableListReducer
+					// }
+					paginateService={this.paginateService}
+					storeListItemWithState={true}
 					extraData={this.state.highlightedItemIndex}
 					keyExtrator={this.keyExtrator}
 					pageSize={10}

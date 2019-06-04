@@ -3,6 +3,7 @@ import { combineReducers, applyMiddleware, compose, createStore } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import 'react-native'
 import { Text } from 'react-native'
+import { shallow } from 'enzyme'
 
 import PaginatableList from '../index'
 import PaginationStateManager from '../PaginationStateManager'
@@ -147,6 +148,56 @@ describe('PaginatableList', () => {
 						el.props.testID === 'custom-empty' && el.type === 'Text'
 				).length
 			).toBe(1)
+		})
+	})
+
+	describe('#onLoadMore', () => {
+		describe('with custom onLoadMore', () => {
+			it('calls onLoadMore with proper parameters', () => {
+				const reduxStore = createStore(
+					getCombinedReducers(),
+					{},
+					compose(applyMiddleware(ReduxThunk))
+				)
+				const pageNumberKey = 'pageNumber'
+				const pageSizeKey = 'pageSize'
+				const pageSize = 10
+				const onLoadMore = jest.fn()
+				const onCompleteLoadingMore = jest.fn()
+				const onLoadError = jest.fn()
+				const wrapper = shallow(
+					<PaginatableList
+						store={reduxStore}
+						customizedPaginationStateManager={
+							paginationStateManager
+						}
+						onLoadMore={onLoadMore}
+						pageNumberKey={pageNumberKey}
+						pageSizeKey={pageSizeKey}
+						pageSize={pageSize}
+						onCompleteLoadingMore={onCompleteLoadingMore}
+						onLoadError={onLoadError}
+					/>
+				).dive()
+				const instance = wrapper.instance()
+
+				instance.onLoadMore()
+
+				expect(onLoadMore.mock.calls[0][0].pageNumberKey).toBe(
+					pageNumberKey
+				)
+				expect(onLoadMore.mock.calls[0][0].pageSizeKey).toBe(
+					pageSizeKey
+				)
+				expect(onLoadMore.mock.calls[0][0].pageSize).toBe(pageSize)
+				expect(onLoadMore.mock.calls[0][0].pageNumber).toEqual(
+					expect.any(Number)
+				)
+				expect(onLoadMore.mock.calls[0][1]).toBe(
+					instance.onCompleteLoadingMore
+				)
+				expect(onLoadMore.mock.calls[0][2]).toBe(instance.onLoadError)
+			})
 		})
 	})
 })

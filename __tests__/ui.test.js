@@ -183,18 +183,13 @@ describe('PaginatableList', () => {
 
 				instance.onLoadMore()
 
-				expect(loadMore.mock.calls[0][0].pageNumberKey).toBe(
-					pageNumberKey
-				)
-				expect(loadMore.mock.calls[0][0].pageSizeKey).toBe(pageSizeKey)
-				expect(loadMore.mock.calls[0][0].pageSize).toBe(pageSize)
-				expect(loadMore.mock.calls[0][0].pageNumber).toEqual(
-					expect.any(Number)
-				)
-				expect(loadMore.mock.calls[0][1]).toBe(
-					instance.onCompleteLoadingMore
-				)
-				expect(loadMore.mock.calls[0][2]).toBe(instance.onLoadError)
+				const firstCall = loadMore.mock.calls[0]
+				expect(firstCall[0].pageNumberKey).toBe(pageNumberKey)
+				expect(firstCall[0].pageSizeKey).toBe(pageSizeKey)
+				expect(firstCall[0].pageSize).toBe(pageSize)
+				expect(firstCall[0].pageNumber).toEqual(expect.any(Number))
+				expect(firstCall[1]).toBe(instance.onCompleteLoadingMore)
+				expect(firstCall[2]).toBe(instance.onLoadError)
 			})
 		})
 
@@ -229,25 +224,18 @@ describe('PaginatableList', () => {
 
 				instance.onLoadMore()
 
-				expect(onLoadMore.mock.calls[0][0].pageNumberKey).toBe(
-					pageNumberKey
-				)
-				expect(onLoadMore.mock.calls[0][0].pageSizeKey).toBe(
-					pageSizeKey
-				)
-				expect(onLoadMore.mock.calls[0][0].pageSize).toBe(pageSize)
-				expect(onLoadMore.mock.calls[0][0].pageNumber).toEqual(
-					expect.any(Number)
-				)
-				expect(onLoadMore.mock.calls[0][1]).toBe(
-					instance.onCompleteLoadingMore
-				)
-				expect(onLoadMore.mock.calls[0][2]).toBe(instance.onLoadError)
+				const firstCall = onLoadMore.mock.calls[0]
+				expect(firstCall[0].pageNumberKey).toBe(pageNumberKey)
+				expect(firstCall[0].pageSizeKey).toBe(pageSizeKey)
+				expect(firstCall[0].pageSize).toBe(pageSize)
+				expect(firstCall[0].pageNumber).toEqual(expect.any(Number))
+				expect(firstCall[1]).toBe(instance.onCompleteLoadingMore)
+				expect(firstCall[2]).toBe(instance.onLoadError)
 			})
 		})
 	})
 
-	describe('onRefresh', () => {
+	describe('#onRefresh', () => {
 		describe('without custom onRefresh', () => {
 			it('calls paginationStateManager.refresh with proper parameters', () => {
 				const reduxStore = createStore(
@@ -279,18 +267,13 @@ describe('PaginatableList', () => {
 
 				instance.onRefresh()
 
-				expect(refresh.mock.calls[0][0].pageNumberKey).toBe(
-					pageNumberKey
-				)
-				expect(refresh.mock.calls[0][0].pageSizeKey).toBe(pageSizeKey)
-				expect(refresh.mock.calls[0][0].pageNumber).toEqual(
-					expect.any(Number)
-				)
-				expect(refresh.mock.calls[0][0].pageSize).toBe(pageSize)
-				expect(refresh.mock.calls[0][1]).toBe(
-					instance.onCompleteRefreshing
-				)
-				expect(refresh.mock.calls[0][2]).toBe(instance.onLoadError)
+				const firstCall = refresh.mock.calls[0]
+				expect(firstCall[0].pageNumberKey).toBe(pageNumberKey)
+				expect(firstCall[0].pageSizeKey).toBe(pageSizeKey)
+				expect(firstCall[0].pageNumber).toEqual(expect.any(Number))
+				expect(firstCall[0].pageSize).toBe(pageSize)
+				expect(firstCall[1]).toBe(instance.onCompleteRefreshing)
+				expect(firstCall[2]).toBe(instance.onLoadError)
 			})
 		})
 
@@ -325,18 +308,13 @@ describe('PaginatableList', () => {
 
 				instance.onRefresh()
 
-				expect(onRefresh.mock.calls[0][0].pageNumberKey).toBe(
-					pageNumberKey
-				)
-				expect(onRefresh.mock.calls[0][0].pageSizeKey).toBe(pageSizeKey)
-				expect(onRefresh.mock.calls[0][0].pageSize).toBe(pageSize)
-				expect(onRefresh.mock.calls[0][0].pageNumber).toEqual(
-					expect.any(Number)
-				)
-				expect(onRefresh.mock.calls[0][1]).toBe(
-					instance.onCompleteRefreshing
-				)
-				expect(onRefresh.mock.calls[0][2]).toBe(instance.onLoadError)
+				const firstCall = onRefresh.mock.calls[0]
+				expect(firstCall[0].pageNumberKey).toBe(pageNumberKey)
+				expect(firstCall[0].pageSizeKey).toBe(pageSizeKey)
+				expect(firstCall[0].pageSize).toBe(pageSize)
+				expect(firstCall[0].pageNumber).toEqual(expect.any(Number))
+				expect(firstCall[1]).toBe(instance.onCompleteRefreshing)
+				expect(firstCall[2]).toBe(instance.onLoadError)
 			})
 		})
 	})

@@ -152,6 +152,52 @@ describe('PaginatableList', () => {
 	})
 
 	describe('#onLoadMore', () => {
+		describe('without custom onLoadMore', () => {
+			it('calls paginationStateManager.loadMore with proper parameters', () => {
+				const reduxStore = createStore(
+					getCombinedReducers(),
+					{},
+					compose(applyMiddleware(ReduxThunk))
+				)
+				const pageNumberKey = 'pageNumber'
+				const pageSizeKey = 'pageSize'
+				const pageSize = 10
+				const onCompleteLoadingMore = jest.fn()
+				const onLoadError = jest.fn()
+				const wrapper = shallow(
+					<PaginatableList
+						store={reduxStore}
+						customizedPaginationStateManager={
+							paginationStateManager
+						}
+						pageNumberKey={pageNumberKey}
+						pageSizeKey={pageSizeKey}
+						pageSize={pageSize}
+						onCompleteLoadingMore={onCompleteLoadingMore}
+						onLoadError={onLoadError}
+					/>
+				).dive()
+				const instance = wrapper.instance()
+				const loadMore = jest.fn(() => () => Promise.resolve())
+				instance.paginationStateManager = { loadMore }
+
+				instance.onLoadMore()
+
+				expect(loadMore.mock.calls[0][0].pageNumberKey).toBe(
+					pageNumberKey
+				)
+				expect(loadMore.mock.calls[0][0].pageSizeKey).toBe(pageSizeKey)
+				expect(loadMore.mock.calls[0][0].pageSize).toBe(pageSize)
+				expect(loadMore.mock.calls[0][0].pageNumber).toEqual(
+					expect.any(Number)
+				)
+				expect(loadMore.mock.calls[0][1]).toBe(
+					instance.onCompleteLoadingMore
+				)
+				expect(loadMore.mock.calls[0][2]).toBe(instance.onLoadError)
+			})
+		})
+
 		describe('with custom onLoadMore', () => {
 			it('calls onLoadMore with proper parameters', () => {
 				const reduxStore = createStore(
@@ -199,5 +245,15 @@ describe('PaginatableList', () => {
 				expect(onLoadMore.mock.calls[0][2]).toBe(instance.onLoadError)
 			})
 		})
+
+		// Test the two core functionalities, which are loadMore and refresh in the PaginatableList. In order to achieve the testing, mock-up API responses need to be used in the test.
+
+		// [] When loadMore method is called, mock-up API response, and check if the API call is properly called once with the correct parameters (pageNumber, pageSize, headers).
+
+		// [DONE] If onLoadMore props exist, test the value of onLoadMore, which is a function, is called properly with correct params (including additional query params).
+
+		// [] When refresh method is called, mock-up API response, and check if the API call is made with the first page, along with correct parameters(pageSize, headers).
+
+		// [] When onRefresh props exist, test the value of onRefresh to be called with proper params(pageSize, headers, additional query params).
 	})
 })

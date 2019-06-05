@@ -199,7 +199,7 @@ describe('PaginatableList', () => {
 		})
 
 		describe('with custom onLoadMore', () => {
-			it('calls onLoadMore with proper parameters', () => {
+			it('calls custom onLoadMore with proper parameters', () => {
 				const reduxStore = createStore(
 					getCombinedReducers(),
 					{},
@@ -245,15 +245,99 @@ describe('PaginatableList', () => {
 				expect(onLoadMore.mock.calls[0][2]).toBe(instance.onLoadError)
 			})
 		})
+	})
 
-		// Test the two core functionalities, which are loadMore and refresh in the PaginatableList. In order to achieve the testing, mock-up API responses need to be used in the test.
+	describe('onRefresh', () => {
+		describe('without custom onRefresh', () => {
+			it('calls paginationStateManager.refresh with proper parameters', () => {
+				const reduxStore = createStore(
+					getCombinedReducers(),
+					{},
+					compose(applyMiddleware(ReduxThunk))
+				)
+				const pageNumberKey = 'pageNumber'
+				const pageSizeKey = 'pageSize'
+				const pageSize = 10
+				const onCompleteRefreshing = jest.fn()
+				const onLoadError = jest.fn()
+				const wrapper = shallow(
+					<PaginatableList
+						store={reduxStore}
+						customizedPaginationStateManager={
+							paginationStateManager
+						}
+						pageNumberKey={pageNumberKey}
+						pageSizeKey={pageSizeKey}
+						pageSize={pageSize}
+						onCompleteRefreshing={onCompleteRefreshing}
+						onLoadError={onLoadError}
+					/>
+				).dive()
+				const instance = wrapper.instance()
+				const refresh = jest.fn(() => () => Promise.resolve())
+				instance.paginationStateManager = { refresh }
 
-		// [] When loadMore method is called, mock-up API response, and check if the API call is properly called once with the correct parameters (pageNumber, pageSize, headers).
+				instance.onRefresh()
 
-		// [DONE] If onLoadMore props exist, test the value of onLoadMore, which is a function, is called properly with correct params (including additional query params).
+				expect(refresh.mock.calls[0][0].pageNumberKey).toBe(
+					pageNumberKey
+				)
+				expect(refresh.mock.calls[0][0].pageSizeKey).toBe(pageSizeKey)
+				expect(refresh.mock.calls[0][0].pageNumber).toEqual(
+					expect.any(Number)
+				)
+				expect(refresh.mock.calls[0][0].pageSize).toBe(pageSize)
+				expect(refresh.mock.calls[0][1]).toBe(
+					instance.onCompleteRefreshing
+				)
+				expect(refresh.mock.calls[0][2]).toBe(instance.onLoadError)
+			})
+		})
 
-		// [] When refresh method is called, mock-up API response, and check if the API call is made with the first page, along with correct parameters(pageSize, headers).
+		describe('with custom onRefresh', () => {
+			it('calls custom onRefresh with proper parameters', () => {
+				const reduxStore = createStore(
+					getCombinedReducers(),
+					{},
+					compose(applyMiddleware(ReduxThunk))
+				)
+				const pageNumberKey = 'pageNumber'
+				const pageSizeKey = 'pageSize'
+				const pageSize = 10
+				const onRefresh = jest.fn()
+				const onCompleteRefreshing = jest.fn()
+				const onLoadError = jest.fn()
+				const wrapper = shallow(
+					<PaginatableList
+						store={reduxStore}
+						customizedPaginationStateManager={
+							paginationStateManager
+						}
+						onRefresh={onRefresh}
+						pageNumberKey={pageNumberKey}
+						pageSizeKey={pageSizeKey}
+						pageSize={pageSize}
+						onCompleteRefreshing={onCompleteRefreshing}
+						onLoadError={onLoadError}
+					/>
+				).dive()
+				const instance = wrapper.instance()
 
-		// [] When onRefresh props exist, test the value of onRefresh to be called with proper params(pageSize, headers, additional query params).
+				instance.onRefresh()
+
+				expect(onRefresh.mock.calls[0][0].pageNumberKey).toBe(
+					pageNumberKey
+				)
+				expect(onRefresh.mock.calls[0][0].pageSizeKey).toBe(pageSizeKey)
+				expect(onRefresh.mock.calls[0][0].pageSize).toBe(pageSize)
+				expect(onRefresh.mock.calls[0][0].pageNumber).toEqual(
+					expect.any(Number)
+				)
+				expect(onRefresh.mock.calls[0][1]).toBe(
+					instance.onCompleteRefreshing
+				)
+				expect(onRefresh.mock.calls[0][2]).toBe(instance.onLoadError)
+			})
+		})
 	})
 })

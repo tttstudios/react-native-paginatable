@@ -175,7 +175,8 @@ describe('PaginatableList', () => {
 						pageSize={pageSize}
 						onCompleteLoadingMore={onCompleteLoadingMore}
 						onLoadError={onLoadError}
-					/>
+					/>,
+					{ disableLifecycleMethods: true }
 				).dive()
 				const instance = wrapper.instance()
 				const loadMore = jest.fn(() => () => Promise.resolve())
@@ -187,7 +188,7 @@ describe('PaginatableList', () => {
 				expect(firstCall[0].pageNumberKey).toBe(pageNumberKey)
 				expect(firstCall[0].pageSizeKey).toBe(pageSizeKey)
 				expect(firstCall[0].pageSize).toBe(pageSize)
-				expect(firstCall[0].pageNumber).toEqual(expect.any(Number))
+				expect(firstCall[0].pageNumber).toEqual(1)
 				expect(firstCall[1]).toBe(instance.onCompleteLoadingMore)
 				expect(firstCall[2]).toBe(instance.onLoadError)
 			})
@@ -218,7 +219,8 @@ describe('PaginatableList', () => {
 						pageSize={pageSize}
 						onCompleteLoadingMore={onCompleteLoadingMore}
 						onLoadError={onLoadError}
-					/>
+					/>,
+					{ disableLifecycleMethods: true }
 				).dive()
 				const instance = wrapper.instance()
 
@@ -228,7 +230,7 @@ describe('PaginatableList', () => {
 				expect(firstCall[0].pageNumberKey).toBe(pageNumberKey)
 				expect(firstCall[0].pageSizeKey).toBe(pageSizeKey)
 				expect(firstCall[0].pageSize).toBe(pageSize)
-				expect(firstCall[0].pageNumber).toEqual(expect.any(Number))
+				expect(firstCall[0].pageNumber).toEqual(1)
 				expect(firstCall[1]).toBe(instance.onCompleteLoadingMore)
 				expect(firstCall[2]).toBe(instance.onLoadError)
 			})

@@ -3,6 +3,7 @@ import { combineReducers, applyMiddleware, compose, createStore } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import 'react-native'
 import { Text } from 'react-native'
+import { shallow } from 'enzyme'
 
 import PaginatableList from '../index'
 import PaginationStateManager from '../PaginationStateManager'
@@ -147,6 +148,176 @@ describe('PaginatableList', () => {
 						el.props.testID === 'custom-empty' && el.type === 'Text'
 				).length
 			).toBe(1)
+		})
+	})
+
+	describe('#onLoadMore', () => {
+		describe('without custom onLoadMore', () => {
+			it('calls paginationStateManager.loadMore with proper parameters', () => {
+				const reduxStore = createStore(
+					getCombinedReducers(),
+					{},
+					compose(applyMiddleware(ReduxThunk))
+				)
+				const pageNumberKey = 'pageNumber'
+				const pageSizeKey = 'pageSize'
+				const pageSize = 10
+				const onCompleteLoadingMore = jest.fn()
+				const onLoadError = jest.fn()
+				const wrapper = shallow(
+					<PaginatableList
+						store={reduxStore}
+						customizedPaginationStateManager={
+							paginationStateManager
+						}
+						pageNumberKey={pageNumberKey}
+						pageSizeKey={pageSizeKey}
+						pageSize={pageSize}
+						onCompleteLoadingMore={onCompleteLoadingMore}
+						onLoadError={onLoadError}
+					/>,
+					{ disableLifecycleMethods: true }
+				).dive()
+				const instance = wrapper.instance()
+				const loadMore = jest.fn(() => () => Promise.resolve())
+				instance.paginationStateManager = { loadMore }
+
+				instance.onLoadMore()
+
+				const firstCall = loadMore.mock.calls[0]
+				expect(firstCall[0].pageNumberKey).toBe(pageNumberKey)
+				expect(firstCall[0].pageSizeKey).toBe(pageSizeKey)
+				expect(firstCall[0].pageSize).toBe(pageSize)
+				expect(firstCall[0].pageNumber).toEqual(1)
+				expect(firstCall[1]).toBe(instance.onCompleteLoadingMore)
+				expect(firstCall[2]).toBe(instance.onLoadError)
+			})
+		})
+
+		describe('with custom onLoadMore', () => {
+			it('calls custom onLoadMore with proper parameters', () => {
+				const reduxStore = createStore(
+					getCombinedReducers(),
+					{},
+					compose(applyMiddleware(ReduxThunk))
+				)
+				const pageNumberKey = 'pageNumber'
+				const pageSizeKey = 'pageSize'
+				const pageSize = 10
+				const onLoadMore = jest.fn()
+				const onCompleteLoadingMore = jest.fn()
+				const onLoadError = jest.fn()
+				const wrapper = shallow(
+					<PaginatableList
+						store={reduxStore}
+						customizedPaginationStateManager={
+							paginationStateManager
+						}
+						onLoadMore={onLoadMore}
+						pageNumberKey={pageNumberKey}
+						pageSizeKey={pageSizeKey}
+						pageSize={pageSize}
+						onCompleteLoadingMore={onCompleteLoadingMore}
+						onLoadError={onLoadError}
+					/>,
+					{ disableLifecycleMethods: true }
+				).dive()
+				const instance = wrapper.instance()
+
+				instance.onLoadMore()
+
+				const firstCall = onLoadMore.mock.calls[0]
+				expect(firstCall[0].pageNumberKey).toBe(pageNumberKey)
+				expect(firstCall[0].pageSizeKey).toBe(pageSizeKey)
+				expect(firstCall[0].pageSize).toBe(pageSize)
+				expect(firstCall[0].pageNumber).toEqual(1)
+				expect(firstCall[1]).toBe(instance.onCompleteLoadingMore)
+				expect(firstCall[2]).toBe(instance.onLoadError)
+			})
+		})
+	})
+
+	describe('#onRefresh', () => {
+		describe('without custom onRefresh', () => {
+			it('calls paginationStateManager.refresh with proper parameters', () => {
+				const reduxStore = createStore(
+					getCombinedReducers(),
+					{},
+					compose(applyMiddleware(ReduxThunk))
+				)
+				const pageNumberKey = 'pageNumber'
+				const pageSizeKey = 'pageSize'
+				const pageSize = 10
+				const onCompleteRefreshing = jest.fn()
+				const onLoadError = jest.fn()
+				const wrapper = shallow(
+					<PaginatableList
+						store={reduxStore}
+						customizedPaginationStateManager={
+							paginationStateManager
+						}
+						pageNumberKey={pageNumberKey}
+						pageSizeKey={pageSizeKey}
+						pageSize={pageSize}
+						onCompleteRefreshing={onCompleteRefreshing}
+						onLoadError={onLoadError}
+					/>
+				).dive()
+				const instance = wrapper.instance()
+				const refresh = jest.fn(() => () => Promise.resolve())
+				instance.paginationStateManager = { refresh }
+
+				instance.onRefresh()
+
+				const firstCall = refresh.mock.calls[0]
+				expect(firstCall[0].pageNumberKey).toBe(pageNumberKey)
+				expect(firstCall[0].pageSizeKey).toBe(pageSizeKey)
+				expect(firstCall[0].pageNumber).toEqual(expect.any(Number))
+				expect(firstCall[0].pageSize).toBe(pageSize)
+				expect(firstCall[1]).toBe(instance.onCompleteRefreshing)
+				expect(firstCall[2]).toBe(instance.onLoadError)
+			})
+		})
+
+		describe('with custom onRefresh', () => {
+			it('calls custom onRefresh with proper parameters', () => {
+				const reduxStore = createStore(
+					getCombinedReducers(),
+					{},
+					compose(applyMiddleware(ReduxThunk))
+				)
+				const pageNumberKey = 'pageNumber'
+				const pageSizeKey = 'pageSize'
+				const pageSize = 10
+				const onRefresh = jest.fn()
+				const onCompleteRefreshing = jest.fn()
+				const onLoadError = jest.fn()
+				const wrapper = shallow(
+					<PaginatableList
+						store={reduxStore}
+						customizedPaginationStateManager={
+							paginationStateManager
+						}
+						onRefresh={onRefresh}
+						pageNumberKey={pageNumberKey}
+						pageSizeKey={pageSizeKey}
+						pageSize={pageSize}
+						onCompleteRefreshing={onCompleteRefreshing}
+						onLoadError={onLoadError}
+					/>
+				).dive()
+				const instance = wrapper.instance()
+
+				instance.onRefresh()
+
+				const firstCall = onRefresh.mock.calls[0]
+				expect(firstCall[0].pageNumberKey).toBe(pageNumberKey)
+				expect(firstCall[0].pageSizeKey).toBe(pageSizeKey)
+				expect(firstCall[0].pageSize).toBe(pageSize)
+				expect(firstCall[0].pageNumber).toEqual(expect.any(Number))
+				expect(firstCall[1]).toBe(instance.onCompleteRefreshing)
+				expect(firstCall[2]).toBe(instance.onLoadError)
+			})
 		})
 	})
 })

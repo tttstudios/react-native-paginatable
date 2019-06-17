@@ -465,6 +465,19 @@ const reduxStore = createStore(
     </tr>
 </table>
 
+## Exteral Contributors
+<table>
+    <tr border="0" style="border: none; ">
+        <th border="0" style="border-left: none; border-right: none;">
+        <div>
+        	<img src="https://avatars3.githubusercontent.com/u/1668601?s=400&v=4" width="60px;" style="border-radius: 50%;"/>
+        	<br />
+        	<sub><a href="https://github.com/sunkibaek">Sunki Baek</a></sub> <br />
+        </div>
+        </th>
+    </tr>
+</table>
+
 
 ## Premium Support By TTT Studios
 

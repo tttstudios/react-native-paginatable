@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@twotalltotems/paginatable-list": "0.3.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "expo": "^25.0.0",
     "prop-types": "^15.6.2",
     "react": "16.4.1",
